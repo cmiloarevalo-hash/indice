@@ -3,7 +3,7 @@ name: Windows CI
 on:
   push:
     branches:
-      - work-item-4-t2-project-skeleton
+      - work-item-7-t8-portable-windows-x64
   pull_request:
     branches:
       - main
@@ -12,8 +12,14 @@ permissions:
   contents: read
 
 jobs:
-  build-test:
+  build-test-publish:
     runs-on: windows-latest
+
+    env:
+      SOLUTION: BibliotecaDesktop.sln
+      APP_PROJECT: src/BibliotecaDesktop/BibliotecaDesktop.csproj
+      PUBLISH_DIR: artifacts/publish
+      EVIDENCE_DIR: artifacts/evidence
 
     steps:
       - name: Checkout
@@ -25,10 +31,107 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore
-        run: dotnet restore BibliotecaDesktop.sln
+        run: dotnet restore $env:SOLUTION
 
       - name: Build
-        run: dotnet build BibliotecaDesktop.sln --configuration Release --no-restore
+        run: dotnet build $env:SOLUTION --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test BibliotecaDesktop.sln --configuration Release --no-build --no-restore
+        run: dotnet test $env:SOLUTION --configuration Release --no-build --no-restore
+
+      - name: Publish portable Windows x64
+        shell: pwsh
+        run: >
+          dotnet publish $env:APP_PROJECT
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:PublishTrimmed=false
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:DebugType=None
+          -p:DebugSymbols=false
+          --output $env:PUBLISH_DIR
+
+      - name: Verify portable artifact
+        shell: pwsh
+        run: |
+          $publishDir = Join-Path $env:GITHUB_WORKSPACE $env:PUBLISH_DIR
+          $evidenceDir = Join-Path $env:GITHUB_WORKSPACE $env:EVIDENCE_DIR
+          $expectedExe = "BibliotecaDesktop.exe"
+
+          if (-not (Test-Path -LiteralPath $publishDir -PathType Container)) {
+            throw "Publish directory does not exist: $publishDir"
+          }
+
+          $directories = @(Get-ChildItem -LiteralPath $publishDir -Directory -Force)
+          if ($directories.Count -ne 0) {
+            throw "Unexpected runtime directories: $($directories.Name -join ', ')"
+          }
+
+          $files = @(Get-ChildItem -LiteralPath $publishDir -File -Force)
+          if ($files.Count -ne 1) {
+            throw "Expected exactly one runtime file; found $($files.Count): $($files.Name -join ', ')"
+          }
+
+          $exe = $files[0]
+          if ($exe.Name -ne $expectedExe) {
+            throw "Expected runtime file '$expectedExe'; found '$($exe.Name)'."
+          }
+
+          if ($exe.Extension -ne ".exe") {
+            throw "Published runtime artifact is not an .exe."
+          }
+
+          New-Item -ItemType Directory -Path $evidenceDir -Force | Out-Null
+
+          $hash = (Get-FileHash -LiteralPath $exe.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+          $sizeBytes = $exe.Length
+          $sizeMiB = [math]::Round($sizeBytes / 1MB, 2)
+
+          @(
+            "HEAD=$env:GITHUB_SHA"
+            "RuntimeIdentifier=win-x64"
+            "Configuration=Release"
+            "SelfContained=true"
+            "PublishSingleFile=true"
+            "PublishTrimmed=false"
+            "RuntimeFileCount=1"
+            "FileName=$($exe.Name)"
+            "SizeBytes=$sizeBytes"
+            "SizeMiB=$sizeMiB"
+            "SHA256=$hash"
+          ) | Set-Content -LiteralPath (Join-Path $evidenceDir "artifact-inventory.txt") -Encoding utf8
+
+          "$hash  $($exe.Name)" |
+            Set-Content -LiteralPath (Join-Path $evidenceDir "$expectedExe.sha256") -Encoding ascii
+
+          Write-Host "Runtime artifact inventory:"
+          Get-ChildItem -LiteralPath $publishDir -Force |
+            Select-Object Name, Length, LastWriteTimeUtc |
+            Format-Table -AutoSize
+
+          Write-Host "HEAD=$env:GITHUB_SHA"
+          Write-Host "SIZE_BYTES=$sizeBytes"
+          Write-Host "SIZE_MIB=$sizeMiB"
+          Write-Host "SHA256=$hash"
+
+          @"
+          ### Portable artifact
+          - HEAD: `$env:GITHUB_SHA`
+          - File: `$expectedExe`
+          - Size: $sizeBytes bytes ($sizeMiB MiB)
+          - SHA-256: `$hash`
+          - Runtime package files: 1
+          "@ | Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY
+
+      - name: Upload portable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BibliotecaDesktop-win-x64-${{ github.sha }}
+          if-no-files-found: error
+          compression-level: 0
+          path: |
+            artifacts/publish/BibliotecaDesktop.exe
+            artifacts/evidence/artifact-inventory.txt
+            artifacts/evidence/BibliotecaDesktop.exe.sha256
