@@ -19,3 +19,8 @@ temp/
 # Library corpus must remain outside this repository
 libroesoterico.com/
 biblioteca/
+
+# .NET build output
+bin/
+obj/
+*.user
