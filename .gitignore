@@ -1,0 +1,21 @@
+# OS / editor / local files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# Local environment
+.env
+.env.*
+
+# Build / generated / temporary output
+dist/
+build/
+out/
+tmp/
+temp/
+
+# Library corpus must remain outside this repository
+libroesoterico.com/
+biblioteca/
