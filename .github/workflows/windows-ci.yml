@@ -20,10 +20,13 @@ jobs:
       APP_PROJECT: src/BibliotecaDesktop/BibliotecaDesktop.csproj
       PUBLISH_DIR: artifacts/publish
       EVIDENCE_DIR: artifacts/evidence
+      DELIVERY_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
     steps:
-      - name: Checkout
+      - name: Checkout exact delivery HEAD
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
@@ -90,7 +93,7 @@ jobs:
           $sizeMiB = [math]::Round($sizeBytes / 1MB, 2)
 
           @(
-            "HEAD=$env:GITHUB_SHA"
+            "HEAD=$env:DELIVERY_SHA"
             "RuntimeIdentifier=win-x64"
             "Configuration=Release"
             "SelfContained=true"
@@ -111,14 +114,14 @@ jobs:
             Select-Object Name, Length, LastWriteTimeUtc |
             Format-Table -AutoSize
 
-          Write-Host "HEAD=$env:GITHUB_SHA"
+          Write-Host "HEAD=$env:DELIVERY_SHA"
           Write-Host "SIZE_BYTES=$sizeBytes"
           Write-Host "SIZE_MIB=$sizeMiB"
           Write-Host "SHA256=$hash"
 
           @"
           ### Portable artifact
-          - HEAD: `$env:GITHUB_SHA`
+          - HEAD: `$env:DELIVERY_SHA`
           - File: `$expectedExe`
           - Size: $sizeBytes bytes ($sizeMiB MiB)
           - SHA-256: `$hash`
@@ -128,7 +131,7 @@ jobs:
       - name: Upload portable artifact
         uses: actions/upload-artifact@v4
         with:
-          name: BibliotecaDesktop-win-x64-${{ github.sha }}
+          name: BibliotecaDesktop-win-x64-${{ github.event.pull_request.head.sha || github.sha }}
           if-no-files-found: error
           compression-level: 0
           path: |
