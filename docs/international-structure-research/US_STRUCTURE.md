@@ -27,10 +27,13 @@ Este es un failure mode material para una LLC “simple”.
 
 ### Delaware state baseline
 
-FACT. Delaware LLCs pagan un annual tax de US$300 y no presentan annual report.
+OBSERVED 2026-10-08. Las páginas oficiales de Delaware revisadas no son consistentes entre sí: Tax FAQ muestra US$300/año para LLC/LP/GP y la página general de franchise tax muestra US$400. Ambas indican que LLCs no presentan annual report.
 
-Fuente:
-https://corp.delaware.gov/taxfaq/
+Fuentes oficiales:
+- https://corp.delaware.gov/taxfaq/
+- https://corp.delaware.gov/frtax/
+
+Por esa inconsistencia, el importe estatal exacto debe revalidarse al momento de formar/pagar y no se usa como supuesto fijo en la recomendación.
 
 ESTIMATE total recurring con registered agent + bookkeeping/tax prep: US$1,000–3,000/año.
 
