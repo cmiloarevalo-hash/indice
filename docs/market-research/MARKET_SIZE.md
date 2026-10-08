@@ -61,6 +61,31 @@ https://cvc.cervantes.es/lengua/anuario/anuario_25/moreno-alvarez/cuadros.htm
 
 Estas cifras describen alcance lingüístico, no compradores.
 
+### Señal adyacente de interés en Estados Unidos
+
+OBSERVED — U.S. Census Bureau QuickFacts:
+- población estimada al 1 de julio de 2025: 341,784,857;
+- personas menores de 18 años: 21.1%.
+
+Fuente consultada 2026-10-08:
+https://www.census.gov/quickfacts/fact/table/US/COM100223
+
+ESTIMATE derivado:
+- adultos aproximados = 341,784,857 × 78.9% = ~269.7M.
+
+OBSERVED — Pew Research Center, publicado 2025-05-21:
+- 30% de adultos de EE. UU. consulta astrología/horóscopos, tarot o fortune tellers al menos una vez al año;
+- 20% lo hace principalmente por diversión y 10% principalmente por insights útiles.
+
+Fuente:
+https://www.pewresearch.org/religion/2025/05/21/3-in-10-americans-consult-astrology-tarot-cards-or-fortune-tellers/
+
+ESTIMATE derivado:
+- 30% de ~269.7M adultos = ~80.9M personas con actividad adyacente anual.
+
+Interpretación:
+esto es un techo de interés cultural adyacente, no TAM de Biblioteca Desktop. La mayoría de esa audiencia no es necesariamente lectora de textos esotéricos, investigadora ni compradora de software especializado. Se usa sólo para demostrar que el tema no está limitado a una microaudiencia de miles.
+
 ## Enfoque 1 — top-down con mercados adyacentes
 
 ### Estados Unidos
