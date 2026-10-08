@@ -1,277 +1,435 @@
-# Executive Synthesis — Rights + Market + International Structure
+# Executive Synthesis — Rights, Market and International Structure
 
-Fecha de corte: 2026-10-08.
+Research cutoff: 2026-10-08.
 
-## 1. Respuesta ejecutiva
+This synthesis consolidates Work Item #10 Phase A, Work Item #13 and Work Item #14 under Work Item #15. It is a research deliverable only. It does not authorize sales, publication, outreach, company formation, tax registrations, payments, licensing or deployment.
 
-### Cómo funcionará la clasificación de derechos
+## 1. Executive recommendation
 
-Work Item #10 Phase A implementa un modelo conservador de dos capas:
+Biblioteca Desktop should be developed first as **Spanish-first, private/local-first specialist research software**, not as a promise to redistribute the full 28,781-book corpus.
 
-1. derechos de la obra subyacente;
-2. derechos de la edición/archivo concreto.
+The rights framework must fail closed: direct monetization requires sufficient evidence for both the underlying work and the concrete edition/file. Uncertain or unsupported cases are E, never implicit permission.
 
-Cada capa toma uno de cinco estados normalizados:
-- OPEN_COMMERCIAL;
-- COMMERCIAL_WITH_CONDITIONS;
-- NONCOMMERCIAL_ONLY;
-- RIGHTS_RESERVED_OR_PERMISSION_REQUIRED;
-- UNCERTAIN.
+The closest direct competitor is Libra Esoterica. The strongest workflow substitutes are Readwise, Logos, JSTOR, Zotero, Consensus and Elicit. Specialist cultural memberships such as PRS, Embassy of the Free Mind, Theosophical Society and Internet Sacred Text Archive show willingness to pay for niche access/community, but do not prove SaaS demand.
 
-Combinación:
-- cualquier UNCERTAIN → E_UNCERTAIN_MANUAL_REVIEW;
-- cualquier RIGHTS_RESERVED/PERMISSION → D_RIGHTS_RESERVED_OR_PERMISSION_REQUIRED;
-- cualquier NONCOMMERCIAL_ONLY → C_NONCOMMERCIAL_ONLY;
-- cualquier COMMERCIAL_WITH_CONDITIONS → B_COMMERCIAL_WITH_CONDITIONS;
-- sólo ambas OPEN_COMMERCIAL → A_COMMERCIAL_REUSE_CONFIRMED.
+Initial prices to test:
+- Free: US$0;
+- Pro: US$9/month or US$79/year;
+- Research/AI: US$19/month or approximately US$189/year;
+- Institutional: US$1,500–3,000/year pilot.
 
-A/B/C/D necesitan EvidenceURL trazable; sin evidencia se degrada a E.
+These are HYPOTHESES, not approved commercial prices.
 
-El motor no decide derechos por nombre de archivo, antigüedad o presencia en Internet. Phase B debe aplicar evidencia real a los 28,781 registros; #15 no lo hace.
+Working market ranges:
+- TAM: US$10M–50M/year, ESTIMATE, LOW confidence;
+- SAM: US$3M–18M/year, ESTIMATE, LOW-MEDIUM confidence;
+- first 24–36 month SOM validation band: US$138k–414k annualized, HYPOTHESIS, LOW confidence.
 
-## 2. Competidores que importan realmente
+Entity/tax recommendation by stage:
+- pre-revenue: no foreign entity solely for tax optimization;
+- initial revenue: evaluate Chile operating structure, likely SpA if a separate entity is needed, plus Merchant of Record;
+- expansion: evaluate U.S. C-Corp only for U.S. fundraising/enterprise/operations needs; evaluate Estonia OÜ only for substantive EU operational reasons;
+- foreign-owned U.S. disregarded LLC is not the default recommendation because Form 5472/pro-forma 1120 and Chile CFC/source/ECI analysis add meaningful compliance.
 
-### Directo
+Every entity recommendation remains LEGAL/TAX REVIEW REQUIRED.
 
-OBSERVED 2026-10-08:
-Libra Esoterica es el comparable más cercano:
+## 2. How rights classification works
+
+### Decision unit
+
+Each record is evaluated as two independent layers:
+
+1. underlying work rights;
+2. concrete edition/file rights.
+
+A public-domain text does not automatically free a modern translation, introduction, annotations, illustrations, cover, edited compilation or scan/edition with separate protectable contributions.
+
+### Final classes
+
+- A_COMMERCIAL_REUSE_CONFIRMED
+- B_COMMERCIAL_WITH_CONDITIONS
+- C_NONCOMMERCIAL_ONLY
+- D_RIGHTS_RESERVED_OR_PERMISSION_REQUIRED
+- E_UNCERTAIN_MANUAL_REVIEW
+
+### Conservative combination
+
+- any UNCERTAIN layer -> E;
+- otherwise any RIGHTS_RESERVED_OR_PERMISSION_REQUIRED layer -> D;
+- otherwise any NONCOMMERCIAL_ONLY layer -> C;
+- otherwise any COMMERCIAL_WITH_CONDITIONS layer -> B;
+- only two OPEN_COMMERCIAL layers -> A.
+
+A/B/C/D require traceable evidence. If evidence is missing, the output is E.
+
+### Evidence priority
+
+1. official legislation/treaty;
+2. item-level license/rights notice attached to the concrete edition;
+3. rights-holder/publisher official source;
+4. Creative Commons official materials;
+5. official registry or institutional rights statement;
+6. bibliographic/authority data;
+7. secondary sources;
+8. heuristics only for discovery.
+
+Filename, age or Internet availability cannot create permission.
+
+### Phase A tooling verification
+
+OBSERVED on 2026-10-08:
+- reusable Python classifier;
+- standard library only;
+- synthetic fixtures only;
+- 9 tests executed;
+- 9 passed;
+- 0 failed.
+
+No real catalog or book was accessed or classified.
+
+## 3. Competitors that matter most
+
+### Direct benchmark — Libra Esoterica
+
+OBSERVED on 2026-10-08:
 - 93,815 catalog records;
 - 44,119 public full texts;
-- US$9/month o US$79/year;
-- research AI, semantic search, cross-book correlation y citations.
+- 48 libraries/archives;
+- US$9/month or US$79/year;
+- AI research console, semantic search, cross-book correlation and passage citations.
 
-Fuente:
+Source:
 https://libraesoterica.com/pro
-https://libraesoterica.com/about
 
-### Workflow substitutes
+Strategic implication:
+Biblioteca Desktop should not compete on raw title count. The differentiation is Spanish depth, private/local operation, rights evidence, edition awareness and traceable research workflow.
 
-Readwise, Zotero, Consensus, Elicit y Logos demuestran que usuarios pagan por workflow, research, organización y citations incluso sin que el producto posea todo el contenido.
+### Workflow/research substitutes
 
-Benchmarks OBSERVED:
-- Readwise Full: US$12.99/month o US$119.88/year;
-- Consensus Pro: US$20/month o US$144/year;
-- Consensus Deep: US$65/month o US$540/year;
-- Logos: desde ~US$12.50/month annualized;
-- Zotero: US$20–120/year por storage tiers.
+OBSERVED examples:
+- Readwise: US$12.99 month-to-month or US$119.88/year;
+- Logos: Premium/Pro/Max US$9.99/14.99/19.99 monthly; US$99.99/149.99/199.99 annual;
+- JSTOR JPASS: US$19.50/month or US$199/year;
+- Zotero: core free, storage from free to US$120/year;
+- Consensus: Pro US$20/month or US$144/year; Deep US$65/month or US$540/year;
+- Elicit: Basic free; Plus US$11/user/month annual; Pro US$39/user/month annual on the observed pricing page.
 
-Fuentes:
-https://readwise.io/pricing
-https://consensus.app/pricing/
-https://www.logos.com/pricing
-https://www.zotero.org/storage
+Sources:
+- https://readwise.io/pricing/reader
+- https://desktop.logos.com/configure/subscriptions
+- https://www.jstor.org/jpass
+- https://www.zotero.org/storage/
+- https://help.consensus.app/en/articles/10087865-subscription-plans
+- https://elicit.com/pricing
 
-### Cultural authority substitutes
+These products validate willingness to pay for research workflow independently from owning the underlying content corpus.
 
-Philosophical Research Society y Embassy of the Free Mind muestran willingness-to-pay por membresía, acceso cultural y patronazgo, pero no prueban SaaS demand.
+### Specialist cultural/community substitutes
 
-## 3. Cuánto cobran y qué implica
+OBSERVED:
+- PRS: US$7/month Initiate, US$10/month Scribe;
+- Embassy of the Free Mind: €100/year Pearl, €500 Ruby, €1,000 Diamond, €10,000 Opal;
+- Theosophical Society: US$120/year standard, US$60 discounted, US$240 supporting;
+- Internet Sacred Text Archive: free base, US$3/month ad-free, US$10/month Supporter.
 
-Banda individual observada:
-- niche membership/research entry: ~US$7–13/month;
-- general reading: ~US$12–29/month;
-- research AI: ~US$20–65/month;
-- specialist/institutional: custom o mucho más alto.
+Sources:
+- https://www.prs.org/membership.html
+- https://www.embassyofthefreemind.com/membership
+- https://www.theosophical.org/membership
+- https://sacred-texts.com/subscribe
 
-Conclusión: el pricing inicial no debería intentar maximizar ARPU antes de demostrar retention.
+## 4. Plausible market size
 
-## 4. Tamaño de mercado plausible
+No official source measures “Spanish esoteric research-library software.” Market sizing is triangulation, not observed market share.
 
-### Dato observado
+### Observed adjacent anchors
 
-Instituto Cervantes Anuario 2025:
-- 635,743,644 potential Spanish speakers.
+AAP, published 2026-08-10:
+- U.S. publishing 2025: US$33.4B;
+- Trade consumer books: US$21.7B;
+- Religious Presses: US$2.2B.
 
-Fuente consultada 2026-10-08:
-https://cvc.cervantes.es/lengua/anuario/anuario_25/
+Source:
+https://publishers.org/news/aap-statshot-annual-report-publishing-revenues-totaled-33-4-billion-for-calendar-year-2025/
 
-### ESTIMATE top-down
+Instituto Cervantes 2025:
+- 635,743,644 potential Spanish speakers;
+- 519,115,258 native proficiency;
+- 24,560,143 learners.
 
-HYPOTHESIS: 0.05%–0.25% del universo hispanohablante presenta interés suficientemente alto para una herramienta especializada.
+Source:
+https://observatoriodelespanol.cervantes.org/wp-content/uploads/2025/10/Spanish_a_language_to_the_world_2025.pdf
 
-Resultado:
-- ~318k–1.59M personas;
-- a US$79/year: ~US$25M–126M theoretical niche TAM.
+U.S. adjacent-interest signal:
+- Census 2025 population estimate: 341,784,857;
+- under 18: 21.1%;
+- derived adults: approximately 269.7M;
+- Pew 2025: 30% of U.S. adults consult astrology/horoscopes, tarot or fortune tellers at least annually;
+- derived adjacent-interest ceiling: approximately 80.9M adults.
 
-Confidence: LOW-MEDIUM.
+Sources:
+- https://www.census.gov/quickfacts/fact/table/US/COM100223
+- https://www.pewresearch.org/religion/2025/05/21/3-in-10-americans-consult-astrology-tarot-cards-or-fortune-tellers/
 
-### Bottom-up
+The 80.9M calculation is an ESTIMATE of adjacent interest, not potential subscribers. Pew reports much of this participation is casual.
 
-HYPOTHESIS blended ARPU: US$85/year.
+### Working model
 
-Planning SOM:
-- 1,000 paid users → US$85k ARR;
-- 3,000 → US$255k ARR;
-- 10,000 → US$850k ARR;
-- 30,000 → US$2.55M ARR.
+ESTIMATE / LOW confidence:
+- TAM US$10M–50M/year.
 
-No son forecasts.
+ESTIMATE / LOW-MEDIUM confidence:
+- SAM US$3M–18M/year.
 
-### Comparable ceiling
+HYPOTHESIS / LOW confidence:
+- first 24–36 month SOM validation band US$138k–414k annualized.
 
-Scribd declara 140M+ reach y Libra Esoterica fija el anchor US$79/year. Usar una fracción diminuta de reach generalista sólo como sanity check produce ~US$1.1M–5.5M ARR, pero es LOW-CONFIDENCE y no un market share esperado.
+Illustrative SOM construction:
+- 1,000–3,000 Pro users at US$9/month;
+- 10–30 institutions at a HYPOTHETICAL US$3,000 ACV.
 
-## 5. Segmentos más atractivos
+These are planning bands, not forecasts.
 
-Prioridad inicial:
+## 5. Most attractive customer segments
 
-1. investigadores/coleccionistas esotéricos hispanohablantes;
-2. académicos/posgrado en religión, historia de ideas y humanidades;
-3. bibliotecas, special collections y centros de estudio;
-4. practicantes avanzados que buscan fuentes;
-5. digital-humanities researchers;
-6. escritores/podcasters research-heavy;
-7. anticuarios/rare-book collectors;
-8. docentes/course creators;
-9. editoriales/traductores con legacy catalogs;
-10. lectores generales.
+### P1 — Spanish-speaking esoteric researchers and collectors
 
-Los primeros tres maximizan pain + necesidad de organización/provenance + potencial willingness-to-pay.
+Why:
+- strongest fit with the existing desktop/local architecture;
+- fragmented personal collections create an immediate search/catalog pain;
+- value does not depend on redistribution rights for the real corpus.
 
-## 6. Pricing inicial recomendado
+### P1 — academics and postgraduate researchers in religion/history of ideas
 
-HYPOTHESIS para validation, no precio aprobado:
+Why:
+- high value from provenance, citations, editions and relationship graphs;
+- potential institutional route where individual budgets are limited.
 
-- Free: US$0.
-- Pro Individual: US$8.99/month o US$79/year.
-- Research/AI: US$14.99/month o US$149/year.
-- Institutional pilot: US$1,500–5,000/year, custom.
+### P1 B2B — libraries, special collections and research centers
 
-Racional:
-- Pro iguala el annual anchor de Libra Esoterica;
-- Research queda debajo de Consensus Pro mensual y crea espacio para inference cost;
-- Institutional requiere customer discovery antes de cotizar.
+Why:
+- privacy/local deployment;
+- provenance and rights registry;
+- specialist discovery;
+- potentially higher contract value.
 
-## 7. Posicionamiento recomendado
+Tradeoff:
+slower procurement and stronger support/security requirements.
 
-Principal:
+Secondary segments:
+advanced practitioners, digital-humanities researchers, research-heavy creators, rare-book collectors/dealers, educators, publishers/translators and general-interest readers.
 
-“Biblioteca de investigación esotérica en español, rights-aware y private-first: organiza tu colección local, descubre relaciones entre autores/temas y trabaja con fuentes trazables sin entregar tu biblioteca a la nube.”
+## 6. Initial pricing
 
-Defensibilidad:
-- Spanish-first;
-- local/private;
-- rights-aware por edición y mercado;
-- author/topic/tradition graph;
-- citation-first research;
-- mezcla futura de biblioteca propia + metadata + A/B rights-cleared.
+HYPOTHESIS for future validation:
 
-Alternativas:
-1. sistema operativo privado para bibliotecas personales esotéricas;
-2. biblioteca digital rights-cleared con research/citations.
+### Free
+US$0.
 
-## 8. Estructura societaria/tributaria por etapa
+Purpose:
+acquisition and activation through local import/catalog/search.
 
-### Principios observados
+### Pro
+US$9/month or US$79/year.
 
-Chile:
-- residente/domiciliado tributa por renta de cualquier origen bajo art. 3 LIR;
-- art. 41 G puede atribuir passive income de controlled foreign entities; SII incluye royalties.
+Evidence:
+- exact Libra Esoterica direct anchor;
+- close to PRS/Sacred Texts/Theosophical specialist membership pricing;
+- below Readwise monthly pricing.
 
-Fuentes:
-https://www.bcn.cl/leychile/navegar?idNorma=6368
-https://www.sii.cl/destacados/reforma_tributaria/41g_renta017.html
+### Research / AI
+US$19/month or approximately US$189/year.
 
-US LLC:
-- single-member LLC es disregarded por defecto para federal income tax;
-- foreign-owned US DE puede requerir Form 5472 + pro forma 1120;
-- failure-to-file penalty inicial Form 5472 = US$25,000.
+Evidence:
+- near JSTOR JPASS US$19.50/month;
+- near Consensus Pro US$20/month;
+- below higher research tiers.
 
-Fuentes:
-https://www.irs.gov/businesses/small-businesses-self-employed/single-member-limited-liability-companies
-https://www.irs.gov/instructions/i5472
+Launch gate:
+reliable citations, visible provenance, privacy and controlled inference cost.
 
-Estonia:
-- e-Residency no cambia personal tax residence;
-- una OÜ puede crear PE/dual-residence issues donde realmente se gestiona;
-- distributed profits están gravados a nivel company a 22/78 desde 2025.
+### Institutional
+US$1,500–3,000/year pilot.
 
-Fuentes:
-https://learn.e-resident.gov.ee/hc/en-gb/articles/360001518878-Responsibilities-of-e-residents
-https://learn.e-resident.gov.ee/hc/en-gb/articles/360002542297-Permanent-Establishment-Dual-Residence
-https://emta.ee/en/business-client/taxes-and-payment/income-and-social-taxes/taxation-dividends
+HYPOTHESIS only. Institutional willingness-to-pay requires customer discovery.
+
+## 7. Recommended positioning
+
+Primary positioning:
+
+**Spanish-first, rights-aware and private-first esoteric research software: organize a local collection, discover relationships among authors/topics/editions and research with traceable sources without handing the whole library to an opaque cloud service.**
+
+Alternative if #10 Phase B produces a large A/B subset:
+
+**Rights-cleared Spanish esoteric digital library with citation-first research.**
+
+Alternative if user-owned collections dominate value:
+
+**The private operating system for personal esoteric and occult-research libraries.**
+
+## 8. International structure by stage
 
 ### Pre-revenue
 
-Recomendación:
-- no foreign entity;
-- no EIN;
-- no e-Residency;
-- no VAT registration;
-- validar WTP y product-market fit.
+Recommendation:
+do not create a foreign company solely for tax.
 
-### Ingresos iniciales
+Chile baseline:
+Article 3 of the Chilean Income Tax Law generally taxes residents/domiciliaries on worldwide income. Article 41 G can attribute certain passive income from controlled foreign entities; SII includes royalties among passive categories.
 
-Baseline recomendado:
-Chile SpA + Merchant of Record, sujeto a LEGAL/TAX REVIEW REQUIRED.
+Primary sources:
+- https://www.bcn.cl/leychile/Navegar?idNorma=6368
+- https://www.sii.cl/destacados/reforma_tributaria/41g_renta017.html
 
-Motivo:
-- reduce cross-border reporting;
-- no intenta ignorar Chile worldwide income;
-- MoR delega buena parte de indirect tax/fraud/chargebacks.
+### Initial revenue — illustrative US$25k–100k/year
 
-Paddle OBSERVED:
-5% + US$0.50 por checkout.
-Fuente 2026-10-08:
-https://www.paddle.com/pricing
+Baseline to evaluate:
+Chile SpA + Merchant of Record.
 
-### Expansión
+Why:
+- local operating/tax center matches management in Chile for the working scenario;
+- avoids a foreign annual entity stack solely for checkout;
+- MoR delegates much indirect-tax, fraud, dispute and transaction-support work.
 
-No usar revenue threshold automático.
+OBSERVED MoR pricing:
+- Paddle: 5% + US$0.50 per checkout transaction;
+- Stripe Managed Payments: +3.5% per successful transaction plus standard Stripe processing.
 
-Considerar:
-- US C-Corp si US venture/investors/enterprise/real operations;
-- Estonia OÜ si EU operations/sustancia crean razón real;
-- own merchant si savings netos superan compliance.
+Sources:
+- https://www.paddle.com/pricing
+- https://stripe.com/managed-payments
 
-A US$500k gross revenue con AOV HYPOTHESIS US$79, Paddle standard cost ESTIMATE es ~US$28.2k/year antes de volume pricing. Eso justifica cotizar y comparar, no obliga a migrar.
+At a HYPOTHETICAL US$79 average order value, Paddle standard formula is about 5.63% before refunds, FX and custom pricing:
+- US$25k gross -> approximately US$1.4k;
+- US$100k -> approximately US$5.6k;
+- US$500k -> approximately US$28.2k.
 
-## 9. Decisiones que podemos tomar ahora
+These are ESTIMATES, not quotes.
 
-1. Mantener derechos como gate de contenido: A/B directo; C/D/E no redistribuibles sin cambio de evidencia/licencia.
-2. Construir negocio inicial alrededor de software/discovery, no ventas de PDFs.
-3. Adoptar Free + Pro US$79/year como primer pricing test.
-4. Reservar Research/AI como tier separado.
-5. Posicionar Spanish-first + private/local + rights-aware.
-6. Diseñar wishlist de D/E para medir licensing demand sin distribuir.
-7. Mantener arquitectura de checkout compatible con MoR.
-8. No crear foreign entity antes de una razón operacional verificable.
-9. Diseñar evidence/versioning/geo/attribution desde el inicio.
-10. Orientar first customer discovery a researchers/collectors, academics e institutions.
+### Expansion — illustrative US$500k+ / institutional / fundraising
 
-## 10. Qué debe esperar #10 Phase B
+Re-evaluate based on the actual trigger rather than a revenue threshold alone.
 
-No decidir todavía:
+#### U.S. C-Corp
 
-- cuántos de 28,781 son A/B;
-- tamaño real del commercial catalog;
-- bundles/títulos a vender;
-- revenue de contenido;
-- titulares a licenciar;
-- prioridad de clearance por título real;
-- qué mercados pueden recibir cada edición;
-- claims de “largest rights-cleared Spanish esoteric library”;
-- cuánto valor incremental aporta contenido frente a software.
+Evaluate when there is:
+- U.S. venture fundraising;
+- stock/options requirement;
+- substantial U.S. operations;
+- enterprise counterparties requiring a U.S. corporation.
 
-Phase B debe producir la distribución real A/B/C/D/E antes de comprometer monetización de corpus.
+Federal corporate tax baseline is 21%, plus state taxation where applicable. Owner-level Chile taxation and treaty treatment remain separate.
 
-## 11. Riesgos principales
+#### Foreign-owned single-member U.S. LLC
 
-1. confundir obra libre con edición libre;
-2. sobreestimar nicho a partir de audience generalista;
-3. construir AI caro antes de validar WTP;
-4. depender de derechos D/E para el core product;
-5. formar una estructura extranjera prematura;
-6. fallar compliance Form 5472 en US LLC;
-7. asumir e-Residency como tax residency;
-8. confundir MoR indirect-tax handling con income-tax solution.
+Not the default tax recommendation.
 
-## 12. Next gates
+IRS baseline:
+- domestic single-member LLC is disregarded by default unless it elects corporate treatment;
+- foreign-owned U.S. disregarded entity may require Form 5472 with pro-forma Form 1120;
+- Form 5472 failure penalty begins at US$25,000.
 
-Antes de commercial operation:
-- #10 Phase B;
-- professional legal/tax review de estructura elegida;
-- product/WTP validation;
-- explicit Work Item para payments/sales/outreach.
+Sources:
+- https://www.irs.gov/businesses/small-businesses-self-employed/single-member-limited-liability-companies
+- https://www.irs.gov/instructions/i5472
 
-Work Item #15 no ejecuta ninguno de esos actos.
+ECI/FDAP/source treatment remains fact-dependent:
+- https://www.irs.gov/individuals/international-taxpayers/effectively-connected-income-eci
+- https://www.irs.gov/individuals/international-taxpayers/fixed-determinable-annual-or-periodical-fdap-income
+
+#### Estonia OÜ / e-Residency
+
+Evaluate only for a real EU operating reason.
+
+OBSERVED:
+- e-Residency application: €150;
+- OÜ registration: €265;
+- contact person: €200–400/year;
+- accounting from €50/month;
+- official rough first-year total: about €600 DIY or €1,300 with accounting support;
+- distributed profits taxed at company level at 22/78 from 2025.
+
+Sources:
+- https://learn.e-resident.gov.ee/hc/en-gb/articles/360000625118-Costs-fees
+- https://www.emta.ee/en/business-client/taxes-and-payment/income-and-social-taxes/income-tax-and-basic-exemption
+
+e-Residency does not change personal tax residence. Foreign management can create PE/dual-residence issues.
+
+LEGAL/TAX REVIEW REQUIRED for all options.
+
+## 9. VAT, sales tax and treaty baseline
+
+OBSERVED:
+- Chile applies 19% VAT to relevant remote digital services supplied by nonresidents;
+- Chile export-of-services VAT treatment is conditional and not every foreign SaaS sale is automatically exempt;
+- Non-Union OSS can simplify EU B2C service VAT reporting for qualifying non-EU suppliers;
+- ViDA was adopted in 2025 and phases changes through 2035;
+- Chile-U.S. income-tax treaty entered into force 2023-12-19; withholding provisions became effective 2024-02-01 and other taxes from tax years beginning 2024-01-01.
+
+Sources:
+- https://www.sii.cl/destacados/iva_digital/
+- https://www.sii.cl/destacados/exportador_servicios/
+- https://vat-one-stop-shop.ec.europa.eu/one-stop-shop/register-oss_en
+- https://taxation-customs.ec.europa.eu/taxation/vat/vat-digital-age-vida_en
+- https://www.irs.gov/publications/p901
+
+Treaty benefits, PE, source, CFC, foreign-tax-credit and income classification remain LEGAL/TAX REVIEW REQUIRED.
+
+## 10. Decisions that can be made now
+
+1. Use the conservative A/B/C/D/E evidence engine.
+2. Keep underlying-work and concrete-edition rights separate.
+3. Build a viable software/research product without assuming the real corpus is commercially distributable.
+4. Lead with Spanish-first + private/local + rights-aware positioning.
+5. Design Free / Pro / Research / Institutional packaging.
+6. Use US$79/year as the first Pro willingness-to-pay anchor.
+7. Keep Research/AI separately metered/priced.
+8. Design checkout so a future MoR can be inserted without restructuring core product logic.
+9. Keep copyright rights status independent from entity jurisdiction.
+10. Do not form a foreign company before a concrete operational trigger.
+11. Use wishlist/demand signals for restricted titles without redistributing them.
+12. Prioritize customer discovery with researchers/collectors, academics and institutions.
+13. Build evidence/versioning/attribution/geo controls before commercial content delivery.
+
+## 11. Decisions that must wait for Work Item #10 Phase B
+
+Do not decide from Phase A:
+
+- actual A/B/C/D/E counts across 28,781 records;
+- size of commercial-download catalog;
+- specific bundles;
+- POD candidates;
+- real-title licensing priorities;
+- title-level rights-clearance cost;
+- geo-restricted catalog by jurisdiction;
+- content-membership value based on real rights coverage;
+- content revenue assumptions;
+- marketing claims about commercially accessible rare books.
+
+Phase B is the evidence gate between a software-first business thesis and any concrete commercial-content catalog.
+
+## 12. Main unknowns
+
+- real willingness-to-pay;
+- Free-to-paid conversion;
+- retention;
+- CAC;
+- local/private premium;
+- AI versus metadata/graph value;
+- institutional ACV;
+- actual proportion of A/B after Phase B;
+- title-level licensing economics;
+- exact founder/entity tax facts;
+- actual need for a foreign entity.
+
+## 13. Overall recommendation
+
+Proceed conceptually as a **software-first, rights-aware research product**.
+
+Do not make viability contingent on commercializing the entire historical corpus.
+
+Use Work Item #10 Phase B to determine how much lawful content monetization can be layered on top of software value.
+
+For operating structure, prefer minimum complexity until customer geography, revenue, fundraising, staffing or licensing contracts justify something more complex. Chile + MoR is the leading initial-revenue baseline for evaluation; U.S. C-Corp and Estonia OÜ are conditional expansion tools, not tax shortcuts.
+
+No commercial/entity execution is authorized by Work Item #15.
