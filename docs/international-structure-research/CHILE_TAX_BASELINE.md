@@ -2,108 +2,162 @@
 
 Fecha de corte: 2026-10-08.
 
+Este documento es investigación general, no asesoría tributaria personalizada. Toda decisión que dependa de residencia fiscal, régimen, fuente de renta, establecimiento permanente, créditos o tratado requiere **LEGAL/TAX REVIEW REQUIRED**.
+
 ## 1. Renta mundial
 
-FACT. Artículo 3 de la Ley sobre Impuesto a la Renta: una persona domiciliada o residente en Chile paga impuesto por rentas de cualquier origen, dentro o fuera de Chile, salvo reglas especiales. Existe una regla especial temporal para ciertos extranjeros que adquieren domicilio/residencia.
+FACT — legislación/SII.
 
-Fuente oficial:
-https://www.bcn.cl/leychile/navegar?idNorma=6368
+La regla general del artículo 3 de la Ley sobre Impuesto a la Renta grava a personas domiciliadas o residentes en Chile por rentas de cualquier origen, dentro o fuera de Chile; no residentes/no domiciliados tributan por rentas de fuente chilena, salvo reglas especiales.
 
-Implicación: constituir una LLC, C-Corp u OÜ no convierte automáticamente los beneficios del fundador/residente en renta fuera del sistema chileno.
+Fuentes oficiales consultadas 2026-10-08:
+- LIR / SII: https://www.sii.cl/normativa_legislacion/leyimpuestoalarenta.pdf
+- BCN, DL 824: https://www.bcn.cl/leychile/navegar?idNorma=6368
 
-LEGAL/TAX REVIEW REQUIRED para residencia/domicilio concreto.
+Implicación: constituir una LLC, C-Corp u OÜ no elimina automáticamente la tributación chilena del fundador/residente.
+
+**LEGAL/TAX REVIEW REQUIRED** para residencia/domicilio y reglas personales concretas.
 
 ## 2. CFC — artículo 41 G
 
-FACT. SII indica que residentes/personas jurídicas chilenas que controlan entidades extranjeras pueden tener que reconocer rentas pasivas devengadas/percibidas.
+FACT — SII.
 
-SII enumera como pasivas, entre otras:
+Las reglas del artículo 41 G pueden obligar a contribuyentes domiciliados/residentes/constituidos en Chile que controlen entidades extranjeras a reconocer rentas pasivas de esas entidades.
+
+El texto actualizado de SII incluye como rentas pasivas, entre otras:
 - dividendos;
 - intereses;
-- regalías;
-- arrendamientos;
-- ganancias de capital;
-- cesión de derechos.
+- rentas por cesión del uso/goce/explotación de marcas, patentes, fórmulas y programas computacionales;
+- regalías y prestaciones similares;
+- otras categorías legales.
 
-Control incluye supuestos de 50% o más y otros tests legales.
+Control incluye tests de 50% o más y otros supuestos.
 
-Fuente:
-https://www.sii.cl/destacados/reforma_tributaria/41g_renta017.html
+Fuentes oficiales:
+- Circular SII N°11/2025: https://www.sii.cl/normativa_legislacion/circulares/2025/circu11.pdf
+- portal SII artículo 41 G: https://www.sii.cl/destacados/reforma_tributaria/41g_renta017.html
+- Circular SII N°45/2020: https://www.sii.cl/normativa_legislacion/circulares/2020/circu45.pdf
 
-Una empresa extranjera que cobre royalties/licencias de contenido puede caer en análisis CFC. No asumir diferimiento sólo porque el cash se retiene fuera de Chile.
+Implicación: IP/licensing/royalty income en una entidad extranjera puede ser material para CFC.
 
-LEGAL/TAX REVIEW REQUIRED para ownership, control, excepciones y clasificación de software vs royalty.
+**LEGAL/TAX REVIEW REQUIRED** para ownership, control, excepciones, thresholds, foreign tax credits y clasificación de SaaS vs royalty/licensing.
 
-## 3. SpA y régimen local
+## 3. SpA y constitución local
 
-FACT. El Registro de Empresas y Sociedades permite constituir SpA. El trámite en el portal no tiene coste estatal; si se firma mediante notario por no disponer de FEA, la tarifa oficial para firma del formulario es 0.26 UF, con cargos adicionales posibles por documentos.
+FACT — ChileAtiende / Registro de Empresas y Sociedades.
 
-Fuente:
-https://www.registrodeempresasysociedades.cl/FAQ.aspx?seccion=1
-
-Tax rate no debe modelarse con un número único:
-- régimen General Semi Integrado: IDPC 27% según SII;
-- regímenes Pro Pyme tienen requisitos y tasas propias, incluidas reducciones temporales.
+El régimen simplificado permite constituir una SpA. El portal no cobra una tasa de constitución; firma electrónica avanzada, notaría u otros servicios pueden generar costo.
 
 Fuentes:
-https://www.sii.cl/preguntas_frecuentes/declaracion_renta/001_140_8809.htm
-https://www.sii.cl/destacados/modernizacion/tipos_regimenes_mt.html
+- https://www.chileatiende.gob.cl/fichas/21409-tu-empresa-en-un-dia
+- https://www.registrodeempresasysociedades.cl/
 
-LEGAL/TAX REVIEW REQUIRED para régimen aplicable.
+Ventaja operativa potencial:
+- coherencia entre founder/management y entidad;
+- menor número de jurisdicciones;
+- contabilidad/declaraciones concentradas;
+- compatible con un Merchant of Record futuro.
 
-## 4. IVA digital en Chile
+## 4. Impuesto corporativo chileno
 
-FACT. SII exige IVA digital a proveedores no domiciliados/residentes que presten servicios gravados a beneficiarios en Chile; ejemplos incluyen software, almacenamiento, plataformas y contenido digital.
+FACT — SII, consultado 2026-10-08.
+
+### Régimen General Semi Integrado
+
+IDPC: 27%.
 
 Fuente:
-https://www.sii.cl/destacados/iva_digital/
+https://www.sii.cl/preguntas_frecuentes/declaracion_renta/001_140_8809.htm
 
-Esto importa si una futura entidad extranjera vende directamente a consumidores chilenos.
+### Pro Pyme General
 
-## 5. Exportación de servicios desde Chile
+Tasa normal: 25%.
 
-FACT. SII señala que ingresos por servicios a no residentes pueden quedar exentos de IVA bajo art. 12 E N°16 cuando el servicio es calificado como exportación por Aduanas y se cumplen requisitos.
+Reducción transitoria publicada por SII:
+- años comerciales 2025, 2026 y 2027: 12.5%;
+- año comercial 2028: 15%.
+
+Fuentes:
+- https://www.sii.cl/preguntas_frecuentes/declaracion_renta/001_140_8385.htm
+- https://www.sii.cl/preguntas_frecuentes/declaracion_renta/001_140_4708.htm
+
+No toda SpA califica para Pro Pyme.
+
+**LEGAL/TAX REVIEW REQUIRED** antes de usar una tasa en un plan financiero real.
+
+## 5. Convenio Chile–Estados Unidos
+
+FACT — U.S. Treasury / SII.
+
+El convenio entró en vigor el 19-12-2023. Para retenciones tiene efecto para montos pagados/acreditados desde 01-02-2024; para otros impuestos, períodos que comienzan desde 01-01-2024.
+
+Incluye:
+- tasas reducidas para determinadas retenciones de dividendos, intereses y royalties;
+- regla de business profits vinculada a permanent establishment;
+- limitation on benefits;
+- intercambio de información.
+
+Fuentes:
+- U.S. Treasury: https://home.treasury.gov/news/press-releases/jy2003
+- texto oficial publicado por Chile: https://www.sii.cl/pagina/jurisprudencia/convenios/cdt_chile_eeuu.pdf
+- SII convenios vigentes: https://www.sii.cl/normativa_legislacion/convenios_internacionales.html
+
+No asumir treaty benefit automático para una disregarded LLC u otra entidad.
+
+**LEGAL/TAX REVIEW REQUIRED** para residence, transparency, beneficial ownership, LOB y clasificación del ingreso.
+
+## 6. IVA digital en Chile
+
+FACT — SII.
+
+IVA: 19%.
+
+La normativa vigente grava servicios remotos prestados por contribuyentes sin domicilio/residencia en Chile a beneficiarios en Chile. El SII identifica software, almacenamiento, plataformas/infraestructura y contenido digital como ejemplos relevantes. La Ley 21.713 amplió desde 2024 el alcance a servicios remotos gravados; desde 25-10-2025 también existen reglas para determinados bienes remotos de bajo valor.
+
+Fuentes:
+- https://www.sii.cl/destacados/iva_digital/
+- https://www.sii.cl/vat/faq1_esp.html
+
+## 7. Exportación de servicios desde Chile
+
+FACT — SII.
+
+El artículo 12 letra E N°16 de la Ley de IVA contempla exención para ingresos por servicios a personas sin domicilio/residencia en Chile cuando el servicio sea calificado como exportación por Aduanas y cumpla requisitos, incluyendo su utilización en el extranjero.
 
 Fuente:
 https://www.sii.cl/destacados/exportador_servicios/
 
-No asumir que toda venta SaaS o research a extranjero es automáticamente exportación exenta.
+No toda venta exterior de SaaS/research califica automáticamente.
 
-LEGAL/TAX REVIEW REQUIRED para servicio concreto.
+**LEGAL/TAX REVIEW REQUIRED** para el servicio concreto.
 
-## 6. Chile–Estados Unidos
-
-FACT. El convenio de impuesto a la renta entró en vigor el 19-12-2023. Para withholding aplica a pagos desde 01-02-2024; para otros impuestos, periodos desde 01-01-2024.
-
-Incluye:
-- límites/reducciones a ciertos withholding de dividendos/intereses/royalties;
-- business profits generalmente sujetos a source-country taxation cuando existe permanent establishment, sujeto al tratado;
-- limitation-on-benefits.
-
-Fuentes:
-https://home.treasury.gov/news/press-releases/jy2003
-https://www.irs.gov/publications/p901
-
-Treaty benefit nunca es automático: residencia, beneficial ownership, LOB y clasificación importan.
-
-## 7. Coste operativo
+## 8. Costes operativos
 
 OBSERVED:
-- portal RES: $0;
-- firma notarial del acto: 0.26 UF cuando corresponda.
+- portal de constitución simplificada: sin costo estatal de portal;
+- firmas/notaría pueden costar según método elegido.
 
-ESTIMATE:
-- contabilidad/compliance de SpA digital pequeña: US$600–2,400/año.
-Este rango no proviene del SII y debe cotizarse.
+ESTIMATE — planificación:
+- contabilidad/compliance básico de una empresa digital pequeña: US$600–2,400/año.
 
-## 8. Recomendación de etapa
+Este rango no es tarifa oficial y debe sustituirse por cotizaciones antes de contratar.
 
-Pre-revenue:
-- mantener estructura mínima;
-- no formar extranjero para evitar impuestos.
+## 9. Failure modes
 
-Initial revenue:
-- Chile SpA + MoR es baseline razonable por simplicidad y separación patrimonial, sujeto a revisión profesional.
+- asumir que foreign entity elimina renta mundial chilena;
+- aplicar Pro Pyme sin verificar elegibilidad;
+- ignorar artículo 41 G en IP/royalties;
+- tratar toda venta extranjera como exportación exenta;
+- invocar tratado sin LOB/residencia/beneficial ownership;
+- confundir IVA/MoR con income tax;
+- subestimar reporting y créditos por impuesto extranjero.
 
-Expansion:
-- añadir entidad extranjera sólo si pagos, inversión, staffing o contratos generan beneficio operacional superior al compliance adicional.
+## 10. Recomendación provisional
+
+HYPOTHESIS operativa:
+
+Para un founder que efectivamente reside y gestiona desde Chile, pre-revenue y early-revenue favorecen mantener la estructura en Chile y añadir una entidad extranjera sólo cuando exista una razón comercial cuantificable.
+
+Esto no es una recomendación tributaria definitiva.
+
+**LEGAL/TAX REVIEW REQUIRED** antes de operar, elegir régimen o constituir.
