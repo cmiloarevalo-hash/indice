@@ -56,6 +56,46 @@ class RightsClassifierTests(unittest.TestCase):
         self.assertEqual(CommercialUseClass.E, decision.commercial_use_class)
         self.assertTrue(decision.manual_review_required)
 
+    def test_edition_status_without_evidence_cannot_produce_b_c_or_d(self):
+        cases = (
+            LayerStatus.COMMERCIAL_WITH_CONDITIONS,
+            LayerStatus.NONCOMMERCIAL_ONLY,
+            LayerStatus.RIGHTS_RESERVED_OR_PERMISSION_REQUIRED,
+        )
+
+        for status in cases:
+            with self.subTest(status=status):
+                decision = classify(
+                    LayerAssessment(LayerStatus.OPEN_COMMERCIAL, E1),
+                    LayerAssessment(status),
+                )
+                self.assertEqual(
+                    CommercialUseClass.E,
+                    decision.commercial_use_class,
+                )
+                self.assertTrue(decision.manual_review_required)
+                self.assertIn("edition/file", decision.blocking_reason)
+
+    def test_underlying_status_without_evidence_cannot_produce_b_c_or_d(self):
+        cases = (
+            LayerStatus.COMMERCIAL_WITH_CONDITIONS,
+            LayerStatus.NONCOMMERCIAL_ONLY,
+            LayerStatus.RIGHTS_RESERVED_OR_PERMISSION_REQUIRED,
+        )
+
+        for status in cases:
+            with self.subTest(status=status):
+                decision = classify(
+                    LayerAssessment(status),
+                    LayerAssessment(LayerStatus.OPEN_COMMERCIAL, E2),
+                )
+                self.assertEqual(
+                    CommercialUseClass.E,
+                    decision.commercial_use_class,
+                )
+                self.assertTrue(decision.manual_review_required)
+                self.assertIn("Underlying work", decision.blocking_reason)
+
     def test_uncertain_layer_always_degrades_to_e(self):
         decision = classify(
             LayerAssessment(LayerStatus.OPEN_COMMERCIAL, E1),
