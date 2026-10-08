@@ -2,127 +2,153 @@
 
 Fecha de corte: 2026-10-08.
 
-## Benchmarks observados
+## Observed benchmarks
 
-| Producto | Precio observado | Lectura |
+| Product | Public price observed | Role in benchmark |
 |---|---:|---|
-| Libra Esoterica Pro | US$9/mes; US$79/año | ancla directa de nicho |
-| Readwise Full | US$12.99/mes; US$119.88/año | workflow/research personal |
-| Everand Standard | US$11.99/mes | lectura consumer |
-| Everand Plus | US$16.99/mes | lectura con más unlocks |
-| Consensus Pro | US$20/mes; US$144/año | AI research |
-| Consensus Deep | US$65/mes; US$540/año | research intensivo |
-| Elicit | Basic free; Plus/Pro de dos dígitos a ~US$39+ por usuario/mes en configuración observada | research AI, pricing dinámico |
-| Logos | desde US$12.50/mes anual; Max ~US$16.67/mes anual | vertical especializado |
-| PRS | US$7–10/mes entry membership; tiers patronazgo más altos | comunidad/cultura |
-| Zotero storage | US$20–120/año | utilidad/research, no contenido |
+| Libra Esoterica Pro | US$9/month; US$79/year | closest specialist AI-library anchor |
+| PRS online Astral | US$10/month | specialist culture/content membership |
+| Sacred Texts Supporter | US$10/month | free specialist archive + paid utility/support |
+| Theosophical Society standard | US$10/month or US$120/year | specialist membership |
+| Readwise Full | US$9.99/month billed annually; US$12.99 monthly | personal research/reading workflow |
+| Everand Standard | US$11.99/month | mass-market reading subscription |
+| Everand Plus | US$16.99/month | higher content tier |
+| Consensus Pro | US$20/month or US$144/year | AI research |
+| Consensus Deep | US$65/month or US$540/year | power research |
+| Elicit Plus | US$11/user/month billed annually on observed academic plan | AI research |
+| Elicit Pro | US$39/user/month billed annually on observed academic plan | systematic review |
+| Logos Pro | starts US$12.50/month billed annually | vertical specialist software + content |
+| Logos Max | starts US$16.67/month billed annually | advanced vertical research |
+| Zotero unlimited storage | US$120/year | research utility/storage |
+| JSTOR JPASS | US$19.50/month or US$199/year | independent researcher |
+| JSTOR public libraries | starts US$1,200 / US$5,000 / US$6,000 per year by tier | institutional anchor |
 
-Fuentes oficiales consultadas 2026-10-08:
+Official/first-party sources observed 2026-10-08:
 - https://libraesoterica.com/pro
+- https://www.prs.org/online-membership.html
+- https://sacred-texts.com/subscribe
+- https://www.theosophical.org/membership
 - https://readwise.io/pricing
 - https://www.everand.com/
-- https://consensus.app/pricing/
+- https://help.consensus.app/en/articles/10087865-subscription-plans
 - https://elicit.com/pricing
-- https://www.logos.com/pricing
-- https://www.prs.org/membership.html
-- https://www.zotero.org/storage
+- https://www.logos.com/logos-explore-pricing
+- https://www.zotero.org/storage/
+- https://www.jstor.org/jpass
+- https://about.jstor.org/products/fees/public-libraries/
 
-## Recomendación inicial de pricing
+## Recommended launch tests
 
-Estas cifras son HYPOTHESIS para test, no precios aprobados.
+These are HYPOTHESIS prices, not approved commercial prices.
 
 ### Free — US$0
 
-Incluir:
-- importación/catálogo local básico;
-- búsqueda y filtros;
-- navegación;
-- metadata pública/propia permitida;
-- número limitado de colecciones/listas.
+Potential scope:
+- local catalog/import;
+- search/filter/navigation;
+- basic collections;
+- metadata rights allow us to expose;
+- privacy/local-first onboarding.
 
-Objetivo: adquisición y activation.
+Goal:
+activation and acquisition without using restricted files as the paywall.
 
-### Pro Individual — US$8.99/mes o US$79/año
+### Pro Individual — US$8.99–9/month or US$79–89/year
 
-Racional:
-- iguala aproximadamente la ancla anual de Libra Esoterica;
-- por debajo de Readwise mensual;
-- suficiente para testar WTP sin pretender ser una suite académica completa.
+Default test recommendation:
+US$9/month and US$79/year.
 
-Premium candidate:
-- búsqueda avanzada;
-- author/topic graph;
-- colecciones ilimitadas;
-- sincronización/backup futuro si se diseña con privacidad;
+Evidence:
+- exact Libra direct anchor;
+- PRS/Sacred Texts/Theosophical cluster around US$10/month;
+- below Readwise monthly rate.
+
+Potential premium:
+- advanced search;
+- unlimited lists/collections;
+- graph/relations;
 - exports;
-- research workspace.
+- richer metadata workflows;
+- future sync only if privacy model is acceptable.
 
-### Research / AI — US$14.99/mes o US$149/año
+### Research / AI — US$19/month or US$179–199/year
 
-Racional:
-- por encima de direct niche benchmark;
-- por debajo de Consensus Pro mensual;
-- reserva margen para costes de inferencia si se añade AI.
+Default test recommendation:
+US$19/month / US$189/year.
 
-Debe lanzarse sólo cuando existan:
-- citas verificables;
-- control de coste;
-- privacidad;
-- suficiente calidad para tareas research.
+Evidence:
+- JSTOR JPASS US$19.50/month;
+- Consensus Pro US$20/month;
+- Elicit and Logos demonstrate higher WTP for research-grade tooling.
 
-### Institutional — US$1,500–5,000/año piloto, custom
+Launch gate:
+- passage/source citations;
+- transparent provenance;
+- privacy;
+- inference-cost controls;
+- measurable research quality.
 
-HYPOTHESIS de precio. No existe benchmark directo idéntico.
+### Institutional — pilot US$1,500–3,000/year; later US$5,000–6,000+ where justified
 
-Justificación:
-- Perlego, Consensus y Elicit usan modelos team/institutional/custom;
-- una institución compra administración, soporte, licencias y estabilidad, no sólo seats.
+HYPOTHESIS.
 
-No cotizar comercialmente hasta customer discovery futuro.
+Evidence:
+JSTOR publishes public-library starting tiers around US$1,200, US$5,000 and US$6,000/year.
 
-## Packaging
+Institutional product must add:
+- admin;
+- support;
+- stable licensing;
+- rights/evidence audit;
+- controlled deployment/data handling;
+- procurement-compatible terms.
 
-Recomendación inicial:
+## Packaging logic
 
-- annual-first con descuento 25–30% vs mensual;
-- no lifetime deal;
-- Free suficientemente útil para demostrar local/private workflow;
-- Research separado para no subsidiar AI a todos;
-- Institutional separado por procurement/support.
+Recommended:
+- useful Free;
+- Pro as the core paid plan;
+- Research separately priced so AI cost is not subsidized across all users;
+- Institutional as separate procurement product;
+- annual plan discount roughly 20–30%, consistent with observed specialist/software comparables.
 
-## WTP experiments futuros
+Avoid:
+- lifetime deals before retention/cost data;
+- pricing by total catalog size before #10 Phase B;
+- a paid content promise based on unclassified real corpus.
 
-No ejecutar bajo #15.
+## WTP experiments — future authorization required
 
-1. fake-door de upgrade sin cobrar:
-   medir click-through por feature.
-2. Van Westendorp survey:
-   barata/cara/demasiado barata/demasiado cara.
-3. landing page A/B:
-   US$79 vs US$99 anual.
-4. Research waitlist:
-   medir demanda por citation-first AI.
-5. institucional:
-   entrevistas estructuradas futuras con 10–20 instituciones, bajo autorización.
-6. wishlist de títulos D/E:
-   mide demanda de clearance sin distribuir archivo.
+1. pricing page without checkout;
+2. fake-door Pro upgrade;
+3. US$79 vs US$99 annual price test;
+4. Research waitlist at US$149 / 189 / 199 anchors;
+5. Van Westendorp survey;
+6. institutional concept test;
+7. wishlist for D/E titles without redistributing them.
 
-## Métricas de pricing
+No experiment is executed under #15.
 
-- visitor→signup;
+## Decision metrics
+
 - activation;
-- free→paid;
+- search-to-result success;
+- free→paid conversion;
 - monthly→annual;
 - ARPU;
-- churn;
-- retention 3/6/12 meses;
+- gross margin after payment/MoR/AI cost;
+- 30/90/180-day retention;
 - Research attach rate;
-- gross margin after AI/MoR;
-- institutional pilot close rate.
+- institutional pilot conversion;
+- D/E wishlist-to-license economic value.
 
-## Hipótesis críticas
+## Pricing hypotheses still unproven
 
-- H1: US$79/año es aceptable para investigadores/coleccionistas comprometidos.
-- H2: Research a US$149/año tiene WTP si ofrece citas y cross-book synthesis.
-- H3: privacidad/local-first incrementa conversión en usuarios con colecciones personales.
-- H4: contenido A/B aumenta retention, pero software debe ser valioso incluso sin redistribución.
+- US$79/year maximizes revenue rather than underpricing;
+- Research is worth ~2× Pro;
+- local/private increases WTP;
+- Spanish-first is a premium, not just a localization;
+- institutional buyers accept US$1.5k+;
+- rights-cleared content materially improves retention.
+
+These require customer evidence before implementation or sales decisions.
