@@ -4,152 +4,239 @@ Fecha de corte: 2026-10-08.
 
 ## Regla de lectura
 
-OBSERVED = dato publicado por fuente.
-ESTIMATE = cálculo sobre datos observados.
-HYPOTHESIS = supuesto aún no validado.
-No se presenta ninguna proyección como market share observado.
+- OBSERVED = dato publicado por una fuente identificada.
+- ESTIMATE = cálculo reproducible sobre datos observados.
+- HYPOTHESIS = supuesto comercial no validado.
+- CONFIDENCE = HIGH / MEDIUM / LOW para la utilidad de la estimación.
+
+No existe una estadística oficial limpia para “mercado mundial de biblioteca digital esotérica”. Por eso se usan tres enfoques independientes y no se presenta ninguno como market share observado.
 
 ## Inputs observados
 
-1. Instituto Cervantes, Anuario 2025:
-   - 635,743,644 hablantes potenciales de español;
-   - 519,115,258 con dominio nativo;
-   - 92,068,243 competencia limitada;
-   - 24,560,143 estudiantes.
-   Fuente: Instituto Cervantes, Anuario 2025, consultado 2026-10-08:
-   https://cvc.cervantes.es/lengua/anuario/anuario_25/
+### Estados Unidos
 
-2. Association of American Publishers, estimate 2025:
-   - industria editorial de EE. UU.: US$33.4B;
-   - Trade/consumer books: US$21.7B.
-   Fuente publicada 2026-08-10, consultada 2026-10-08:
-   https://publishers.org/
+OBSERVED — Association of American Publishers, StatShot Annual 2025, publicado 2026-08-10:
+- publishing total: US$33.4B;
+- Trade consumer books: US$21.7B;
+- Religious Presses: US$2.2B;
+- Professional & Scholarly, sin journals: US$1.3B.
 
-3. AAP StatShot 2025 reported subset:
-   - Trade reported revenue ~US$9.8B;
-   - ebooks reported revenue ~US$1.0B.
-   Fuente AAP, consultada 2026-10-08:
-   https://publishers.org/news/
+Fuente:
+https://publishers.org/news/aap-statshot-annual-report-publishing-revenues-totaled-33-4-billion-for-calendar-year-2025/
 
-4. Eurostat:
-   - 9.5% de usuarios de internet de la UE compraron ebooks/audiobooks en los 3 meses previos en 2025, vs 7.3% en 2024.
-   Publicado 2026-04-23, consultado 2026-10-08:
-   https://ec.europa.eu/eurostat/
+Religious Presses es una categoría adyacente, no “esoterismo”.
 
-Estos datos describen mercados amplios; ninguno mide específicamente esoterismo en español.
+### Europa
 
-## Enfoque 1 — top-down demográfico
+OBSERVED — Federation of European Publishers, European Book Publishing Statistics 2024, publicado 2025-11-21:
+- publisher sales: €24.9B;
+- market value estimate: €36.1B;
+- consumer expenditure estimate: €37–39B;
+- ~2.5B copies sold;
+- ~580,000 new titles.
 
-Base OBSERVED: 635.744M potenciales hablantes de español.
+Fuente:
+https://fep-fee.eu/European-Book-Publishing-Statistics-2024
 
-HYPOTHESIS de incidencia de usuarios con alto interés y disposición a usar una plataforma especializada: 0.05%–0.25%.
+### España digital
 
-Cálculo:
-- low: 635,743,644 × 0.0005 = ~317,872 personas;
-- high: 635,743,644 × 0.0025 = ~1,589,359 personas.
+OBSERVED — Federación de Gremios de Editores de España, Comercio Interior del Libro 2025, publicado 2026:
+- digital book revenue: €174.387M;
+- 20.40M digital units/downloads;
+- average digital book price: €8.60;
+- 199,787 digital titles commercialized.
 
-ARPU anual de referencia: US$79, anclado al plan anual observado de Libra Esoterica.
+Fuente:
+https://federacioneditores.org/wp-content/uploads/2026/06/Avance-Resultados-Comercio-Interior-2025-110626.pdf
 
-TAM consumer/research ESTIMATE:
-- low: ~US$25.1M/año;
-- high: ~US$125.6M/año.
+### Alcance del español
 
-Confianza: LOW-MEDIUM, porque el supuesto de incidencia de nicho no está validado.
+OBSERVED — Instituto Cervantes, Anuario 2025:
+- total model of potential Spanish speakers: 635,743,644;
+- native speakers: 519,115,258;
+- learners: 24,560,143.
 
-No incluye B2B/institucional ni ventas/licencias de contenido.
+Fuente:
+https://cvc.cervantes.es/lengua/anuario/anuario_25/moreno-alvarez/cuadros.htm
 
-## Enfoque 2 — bottom-up por suscriptores
+Estas cifras describen alcance lingüístico, no compradores.
 
-Pricing inicial HYPOTHESIS:
-- Pro individual US$79/año;
-- Research/AI US$149/año.
+## Enfoque 1 — top-down con mercados adyacentes
 
-Blended ARPU HYPOTHESIS para planificación: US$85/año en etapa inicial.
+### Estados Unidos
 
-Escenarios:
+OBSERVED adjacent category: US$2.2B Religious Presses.
 
-| Horizonte | Paid users | ARR estimado |
-|---|---:|---:|
-| validación inicial | 1,000 | US$85k |
-| validación alta | 3,000 | US$255k |
-| escala nicho | 10,000 | US$850k |
-| escala fuerte | 30,000 | US$2.55M |
+HYPOTHESIS:
+si una propuesta specialist esoteric/research correspondiera a 0.1%–1.0% de ese spend adyacente, la sensibilidad sería:
 
-Estos no son forecasts. Son HYPOTHESES para dimensionar producto y estructura operativa.
+- 0.1% = US$2.2M/año;
+- 1.0% = US$22M/año.
 
-SOM inicial recomendado para planificación: 1,000–3,000 paid users, US$85k–255k ARR, sujeto a pruebas de conversión y retención.
+CONFIDENCE: LOW.
+
+No implica que 1% sea alcanzable ni que Religious Presses sea intercambiable con esoterismo.
+
+### Europa
+
+OBSERVED consumer book expenditure: €37–39B.
+
+HYPOTHESIS:
+0.02%–0.10% como nicho specialist digital/research produciría un intervalo aproximado de:
+
+- low: €7.4M/año;
+- high: €39M/año.
+
+CONFIDENCE: LOW.
+
+### España digital
+
+OBSERVED digital book revenue: €174.387M.
+
+HYPOTHESIS:
+0.5%–2.0% de ese mercado digital produce:
+
+- ~€0.87M/año;
+- ~€3.49M/año.
+
+CONFIDENCE: LOW-MEDIUM para sensibilidad de España, sin extrapolar automáticamente a LATAM.
+
+## Enfoque 2 — bottom-up por usuarios y ARPU
+
+Pricing de planificación:
+- Pro: US$9/month;
+- Research: US$19/month;
+- Institutional illustrative ACV: US$3,000/year.
+
+Todos son HYPOTHESIS, aunque se anclan en comparables observados.
+
+### Pro individual
+
+| Paid users | ARR @ US$9/month |
+|---:|---:|
+| 1,000 | US$108,000 |
+| 3,000 | US$324,000 |
+| 10,000 | US$1.08M |
+| 25,000 | US$2.70M |
+| 50,000 | US$5.40M |
+
+### Research
+
+| Paid users | ARR @ US$19/month |
+|---:|---:|
+| 1,000 | US$228,000 |
+| 5,000 | US$1.14M |
+| 10,000 | US$2.28M |
+
+### Institutional
+
+US$3,000 average ACV is a HYPOTHESIS inside the range of public JSTOR library starting tiers.
+
+| Institutions | ARR @ US$3,000/year |
+|---:|---:|
+| 10 | US$30,000 |
+| 50 | US$150,000 |
+| 200 | US$600,000 |
+
+JSTOR public-library observed starting prices:
+US$1,200 / US$5,000 / US$6,000 depending tier.
+Source observed 2026-10-08:
+https://about.jstor.org/products/fees/public-libraries/
 
 ## Enfoque 3 — comparable-based
 
-OBSERVED:
-- Scribd declara 140M+ de alcance en su sitio público.
-- Libra Esoterica cobra US$79/año y es el comparable temático más cercano.
+OBSERVED individual specialist/research anchors:
+- Libra Esoterica: US$9/month or US$79/year;
+- PRS online: US$10/month;
+- Sacred Texts Supporter: US$10/month;
+- Theosophical Society standard: US$10/month;
+- Readwise Full: US$9.99/month billed annually or US$12.99 month-to-month;
+- JSTOR JPASS: US$19.50/month.
 
-HYPOTHESIS de capturar paid-equivalent igual a 0.01%–0.05% de ese reach generalista, sólo como sanity check de escala:
-- 14,000–70,000 paid-equivalent.
+Sources are registered in COMPETITIVE_LANDSCAPE.md.
 
-A US$79/año:
-- ~US$1.1M–US$5.5M ARR.
+OBSERVED public demand signal:
+PRS business-membership page states a newsletter audience of 17.7k.
 
-Confianza: LOW. Scribd no representa el nicho y su “reach” no equivale a usuarios pagadores. Este enfoque sirve sólo como techo comparable, no como plan.
+Illustrative sensitivity only:
+- 1% of 17.7k = 177 paying users × US$9 × 12 ≈ US$19.1k ARR;
+- 5% = 885 paying users × US$9 × 12 ≈ US$95.6k ARR.
 
-## Segmentación del mercado económico
+This is not a forecast: PRS audience composition differs from Biblioteca Desktop.
 
-### Contenido
+## Working TAM / SAM / SOM
 
-- ebooks rights-cleared;
-- bundles;
-- colecciones;
-- POD cuando derechos lo permitan.
+These are MODEL ESTIMATES, not observed facts.
 
-Dependencia de #10 Phase B: ALTA.
+### TAM — global specialist content + research/discovery
+
+Working band: US$10M–US$50M annual potential.
+
+Reasoning:
+- sits within small fractions of observed adjacent publishing markets;
+- is consistent with roughly 100k–500k global paid-equivalent niche users at ~US$100/year;
+- does not assume Biblioteca Desktop captures it.
+
+CONFIDENCE: LOW.
+
+### SAM — Spanish/English digitally reachable specialist research audience
+
+Working band: US$3M–US$18M/year.
+
+Reasoning:
+- model of 25k–100k paid-equivalent users at ~US$108–180/year;
+- plus a modest institutional layer;
+- Spanish language reach is large, but niche propensity is unknown.
+
+CONFIDENCE: LOW-MEDIUM.
+
+### SOM — first 24–36 months
+
+Planning target band: US$138k–US$414k annualized revenue.
+
+Illustrative construction:
+- 1,000–3,000 Pro users at US$9/month = US$108k–324k;
+- 10–30 institutions at US$3k average ACV = US$30k–90k.
+
+CONFIDENCE: LOW. This is a validation target, not a forecast.
+
+## Separate economic layers
+
+### Content
+
+Rights-cleared downloads, memberships, bundles and licensing.
+Dependency on #10 Phase B: HIGH.
 
 ### Software / research / discovery
 
-- biblioteca local;
-- metadata;
-- búsqueda;
-- research;
-- author/topic graph;
-- AI con citas.
+Local library, metadata, search, research, knowledge graph and citation workflow.
+Dependency on #10 Phase B: LOW for user-owned collections; MEDIUM for integrated content.
 
-Dependencia de #10 Phase B: BAJA para software sobre colecciones del usuario; MEDIA para contenido integrado.
+### Courses / community
 
-### Cursos / membresía / comunidad
+Membership/patronage/events.
+Different production and community economics.
 
-- patronazgo cultural;
-- research membership;
-- eventos/cursos futuros.
+### B2B / institutional
 
-Dependencia de rights: MEDIA según materiales utilizados.
+Libraries, archives, research centers, universities and publishers.
+Potentially higher ACV but slower procurement.
 
-### B2B / institucional
+## Constraint from #10A
 
-- bibliotecas;
-- special collections;
-- investigadores;
-- centros de estudios;
-- editoriales.
+Do not model the 28,781 real records as commercial inventory before Phase B.
 
-Pricing y demanda: aún HYPOTHESIS; requiere customer discovery futuro.
+The current market thesis should therefore lead with software/research/discovery. Direct content revenue becomes a later increment proportional only to A/B and licensed D.
 
-## Lectura ejecutiva de TAM/SAM/SOM
+## Material unknowns
 
-TAM económico útil para decisiones actuales: no usar el publishing market completo de US$33.4B como “nuestro TAM”. Es un benchmark macro.
+- actual niche population with willingness to pay;
+- free→paid conversion;
+- retention;
+- CAC;
+- size of A/B after #10 Phase B;
+- institution procurement demand;
+- AI cost per active researcher;
+- incremental value of Spanish metadata and rare-source coverage.
 
-TAM nicho preliminar: US$25M–126M/año, LOW-MEDIUM confidence.
-
-SAM recomendado para próximos 2–3 años: usuarios digitales hispanohablantes con interés sostenido en research esotérico y colecciones personales; sin evidencia suficiente para una cifra puntual. Usar intervalo operacional de 100k–400k addressable prospects como HYPOTHESIS.
-
-SOM de planificación inicial: 1k–3k paid users / US$85k–255k ARR.
-
-## Qué debe validarse
-
-- tamaño real del nicho hispanohablante;
-- % con colección digital local;
-- willingness-to-pay;
-- proporción que valora privacidad/local-first;
-- conversión Free→Pro;
-- elasticidad US$79 vs US$99 vs US$149;
-- demanda institucional;
-- valor incremental del contenido A/B una vez exista #10 Phase B.
+These must be measured before treating TAM/SAM/SOM as investment-grade forecasts.
