@@ -22,10 +22,36 @@ class RightsClassifierTests(unittest.TestCase):
         self.assertEqual(CommercialUseClass.A, decision.commercial_use_class)
         self.assertFalse(decision.manual_review_required)
 
-    def test_missing_evidence_degrades_to_e(self):
+    def test_missing_evidence_in_both_layers_degrades_to_e(self):
         decision = classify(
             LayerAssessment(LayerStatus.OPEN_COMMERCIAL),
             LayerAssessment(LayerStatus.OPEN_COMMERCIAL),
+        )
+        self.assertEqual(CommercialUseClass.E, decision.commercial_use_class)
+        self.assertTrue(decision.manual_review_required)
+
+    def test_underlying_missing_evidence_degrades_to_e_even_if_edition_has_evidence(self):
+        decision = classify(
+            LayerAssessment(LayerStatus.OPEN_COMMERCIAL),
+            LayerAssessment(LayerStatus.OPEN_COMMERCIAL, E2),
+        )
+        self.assertEqual(CommercialUseClass.E, decision.commercial_use_class)
+        self.assertTrue(decision.manual_review_required)
+        self.assertIn("Underlying work", decision.blocking_reason)
+
+    def test_edition_missing_evidence_degrades_to_e_even_if_underlying_has_evidence(self):
+        decision = classify(
+            LayerAssessment(LayerStatus.OPEN_COMMERCIAL, E1),
+            LayerAssessment(LayerStatus.OPEN_COMMERCIAL),
+        )
+        self.assertEqual(CommercialUseClass.E, decision.commercial_use_class)
+        self.assertTrue(decision.manual_review_required)
+        self.assertIn("edition/file", decision.blocking_reason)
+
+    def test_blank_evidence_url_does_not_satisfy_layer_requirement(self):
+        decision = classify(
+            LayerAssessment(LayerStatus.OPEN_COMMERCIAL, ("   ",)),
+            LayerAssessment(LayerStatus.OPEN_COMMERCIAL, E2),
         )
         self.assertEqual(CommercialUseClass.E, decision.commercial_use_class)
         self.assertTrue(decision.manual_review_required)
