@@ -29,7 +29,40 @@ Estos scores no son asesoría legal.
 
 La puntuación cambia si aparecen inversionistas US, equipo EU, substantial US operations o facts personales diferentes.
 
-## 3. Escenario US$25k revenue/año
+## 3. Economic comparison assumptions
+
+These illustrations compare operating/compliance overhead, not final tax liability.
+
+OBSERVED / ESTIMATE inputs:
+- Paddle standard MoR: 5% + US$0.50 per checkout.
+- HYPOTHESIS average order value: US$79, implying ~5.63% standard effective MoR fee before refunds, FX and custom pricing.
+- Chile SpA small-company accounting/compliance: US$600–2,400/year ESTIMATE; actual quote required.
+- U.S. foreign-owned LLC recurring state/agent/tax-compliance stack: US$1,000–3,000/year ESTIMATE; Delaware LLC annual tax US$300 is OBSERVED.
+- U.S. C-Corp recurring state/agent/tax-compliance stack: US$1,500–5,000/year ESTIMATE; federal/state tax liability excluded.
+- Estonia OÜ first-year official rough cost: approximately €600 DIY or €1,300 with accounting support; later cost depends on service providers and activity.
+
+Illustrative non-tax overhead:
+
+| Gross revenue | Paddle standard fee estimate | Chile SpA + MoR | US LLC + MoR | US C-Corp + MoR | Estonia OÜ + MoR |
+|---:|---:|---:|---:|---:|---:|
+| US$25k | ~US$1.4k | ~US$2.0k–3.8k | ~US$2.4k–4.4k | ~US$2.9k–6.4k | ~US$1.4k + €0.6k–1.3k |
+| US$100k | ~US$5.6k | ~US$6.2k–8.0k | ~US$6.6k–8.6k | ~US$7.1k–10.6k | ~US$5.6k + €0.6k–1.3k |
+| US$500k | ~US$28.2k | ~US$28.8k–30.6k | ~US$29.2k–31.2k | ~US$29.7k–33.2k | ~US$28.2k + €0.6k–1.3k |
+
+These figures exclude:
+- corporate income tax;
+- owner-level tax;
+- withholding;
+- VAT/sales tax not covered by MoR;
+- payroll;
+- legal advice;
+- foreign-tax-credit effects;
+- banking/FX;
+- custom high-volume MoR discounts.
+
+They are therefore operational comparisons, not after-tax profit models.
+
+## 4. Escenario US$25k revenue/año
 
 HYPOTHESIS:
 - AOV US$79;
@@ -44,7 +77,7 @@ Recomendación:
 
 LEGAL/TAX REVIEW REQUIRED antes de escoger persona vs SpA/regimen.
 
-## 4. Escenario US$100k/año
+## 5. Escenario US$100k/año
 
 MoR ESTIMATE: ~US$5.6k a pricing estándar Paddle/AOV79.
 
@@ -56,7 +89,7 @@ Recomendación:
 
 US LLC disregarded no es default recomendado debido a Form 5472/pro-forma 1120 + Chile complexity.
 
-## 5. Escenario US$500k/año
+## 6. Escenario US$500k/año
 
 MoR ESTIMATE: ~US$28.2k a pricing estándar/AOV79 antes de high-volume discount.
 
@@ -69,7 +102,7 @@ Recomendación:
 
 No crear second entity sólo por alcanzar un revenue threshold.
 
-## 6. Recomendación por etapa
+## 7. Recomendación por etapa
 
 ### Pre-revenue
 
@@ -95,7 +128,7 @@ Decision trigger, no fecha:
 - EU substance/partners/team → model Estonia/EU vehicle;
 - self-merchant economics > MoR savings net of compliance → evaluate own merchant.
 
-## 7. Failure modes
+## 8. Failure modes
 
 Chile:
 - escoger régimen/tax treatment incorrecto;
@@ -125,7 +158,7 @@ MoR:
 - prohibited/restricted product policy;
 - dependency/provider risk.
 
-## 8. Datos que faltan para recomendación definitiva
+## 9. Datos que faltan para recomendación definitiva
 
 No solicitar estos datos en #15; deben revisarse con profesional en Work Item futuro:
 
@@ -145,7 +178,7 @@ No solicitar estos datos en #15; deben revisarse con profesional en Work Item fu
 - foreign tax credits;
 - expected payroll.
 
-## 9. Decisión que puede tomarse ahora
+## 10. Decisión que puede tomarse ahora
 
 Diseñar producto y checkout para que la entidad/MoR sea intercambiable y comenzar con el menor número de jurisdicciones.
 
