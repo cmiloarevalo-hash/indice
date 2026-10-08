@@ -17,8 +17,7 @@ Fecha de corte: 2026-10-08.
 | Consensus Deep | US$65/month or US$540/year | power research |
 | Elicit Plus | US$11/user/month billed annually on observed academic plan | AI research |
 | Elicit Pro | US$39/user/month billed annually on observed academic plan | systematic review |
-| Logos Pro | starts US$12.50/month billed annually | vertical specialist software + content |
-| Logos Max | starts US$16.67/month billed annually | advanced vertical research |
+| Logos Premium / Pro / Max | US$9.99 / US$14.99 / US$19.99 monthly; annual US$99.99 / US$149.99 / US$199.99 | vertical specialist software + content |
 | Zotero unlimited storage | US$120/year | research utility/storage |
 | JSTOR JPASS | US$19.50/month or US$199/year | independent researcher |
 | JSTOR public libraries | starts US$1,200 / US$5,000 / US$6,000 per year by tier | institutional anchor |
@@ -32,7 +31,7 @@ Official/first-party sources observed 2026-10-08:
 - https://www.everand.com/
 - https://help.consensus.app/en/articles/10087865-subscription-plans
 - https://elicit.com/pricing
-- https://www.logos.com/logos-explore-pricing
+- https://desktop.logos.com/configure/subscriptions
 - https://www.zotero.org/storage/
 - https://www.jstor.org/jpass
 - https://about.jstor.org/products/fees/public-libraries/
