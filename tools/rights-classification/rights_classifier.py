@@ -44,15 +44,18 @@ class ClassificationDecision:
     evidence_urls: tuple[str, ...]
 
 
+def _normalized_evidence_urls(layer: LayerAssessment) -> tuple[str, ...]:
+    return tuple(url.strip() for url in layer.evidence_urls if url.strip())
+
+
 def _unique_urls(layers: Iterable[LayerAssessment]) -> tuple[str, ...]:
     seen: set[str] = set()
     result: list[str] = []
     for layer in layers:
-        for url in layer.evidence_urls:
-            normalized = url.strip()
-            if normalized and normalized not in seen:
-                seen.add(normalized)
-                result.append(normalized)
+        for url in _normalized_evidence_urls(layer):
+            if url not in seen:
+                seen.add(url)
+                result.append(url)
     return tuple(result)
 
 
@@ -76,13 +79,22 @@ def classify(
             urls,
         )
 
-    if not urls:
+    if not _normalized_evidence_urls(underlying):
         return ClassificationDecision(
             CommercialUseClass.E,
             "LOW",
             True,
-            "No traceable evidence URL supports a confirmed class.",
-            (),
+            "Underlying work lacks traceable evidence.",
+            urls,
+        )
+
+    if not _normalized_evidence_urls(edition):
+        return ClassificationDecision(
+            CommercialUseClass.E,
+            "LOW",
+            True,
+            "Concrete edition/file lacks traceable evidence.",
+            urls,
         )
 
     if any(
@@ -122,7 +134,7 @@ def classify(
         CommercialUseClass.A,
         confidence,
         confidence != "HIGH",
-        "Both rights layers support commercial reuse.",
+        "Both rights layers support commercial reuse with independent evidence.",
         urls,
     )
 
