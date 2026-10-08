@@ -37,7 +37,7 @@ OBSERVED / ESTIMATE inputs:
 - Paddle standard MoR: 5% + US$0.50 per checkout.
 - HYPOTHESIS average order value: US$79, implying ~5.63% standard effective MoR fee before refunds, FX and custom pricing.
 - Chile SpA small-company accounting/compliance: US$600–2,400/year ESTIMATE; actual quote required.
-- U.S. foreign-owned LLC recurring state/agent/tax-compliance stack: US$1,000–3,000/year ESTIMATE; Delaware LLC annual tax US$300 is OBSERVED.
+- U.S. foreign-owned LLC recurring state/agent/tax-compliance stack: US$1,000–3,000/year ESTIMATE. Delaware official pages reviewed on 2026-10-08 conflict on the LLC annual tax (US$300 in Tax FAQ vs US$400 on the franchise-tax page), so the exact state amount must be revalidated before formation.
 - U.S. C-Corp recurring state/agent/tax-compliance stack: US$1,500–5,000/year ESTIMATE; federal/state tax liability excluded.
 - Estonia OÜ first-year official rough cost: approximately €600 DIY or €1,300 with accounting support; later cost depends on service providers and activity.
 
