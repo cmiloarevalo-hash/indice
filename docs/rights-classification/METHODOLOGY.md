@@ -35,15 +35,19 @@ Each layer receives one normalized status:
 - RIGHTS_RESERVED_OR_PERMISSION_REQUIRED
 - UNCERTAIN
 
+Evidence is evaluated **independently for each layer**. The underlying work must have at least one traceable, nonblank EvidenceURL and the concrete edition/file must separately have at least one traceable, nonblank EvidenceURL. Evidence attached only to one layer cannot satisfy the other layer.
+
 Combination:
 
 1. if either layer is UNCERTAIN → E;
-2. else if either layer is RIGHTS_RESERVED_OR_PERMISSION_REQUIRED → D;
-3. else if either layer is NONCOMMERCIAL_ONLY → C;
-4. else if either layer is COMMERCIAL_WITH_CONDITIONS → B;
-5. else both layers are OPEN_COMMERCIAL → A.
+2. else if underlying-work evidence is missing → E;
+3. else if concrete-edition/file evidence is missing → E;
+4. else if either layer is RIGHTS_RESERVED_OR_PERMISSION_REQUIRED → D;
+5. else if either layer is NONCOMMERCIAL_ONLY → C;
+6. else if either layer is COMMERCIAL_WITH_CONDITIONS → B;
+7. else both layers are OPEN_COMMERCIAL → A.
 
-A/B/C/D require at least one traceable EvidenceURL. If evidence is absent, final class is E.
+Therefore A/B/C/D require independent evidence for **both** rights layers. Missing evidence in either layer produces E_UNCERTAIN_MANUAL_REVIEW.
 
 ## License normalization
 
@@ -102,7 +106,7 @@ A public-domain underlying text can still have a protected:
 - editorial selection;
 - other edition-specific material.
 
-Therefore A requires both layers to be commercially reusable.
+Therefore A requires both layers to be commercially reusable and independently evidenced.
 
 ## Confidence and manual review
 
