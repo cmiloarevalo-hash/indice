@@ -4,7 +4,12 @@ Fecha de corte: 2026-10-08.
 
 ## Core rule
 
-No A/B/C/D classification without at least one traceable evidence source. No evidence means E.
+No A/B/C/D classification unless **both rights layers are independently evidenced**:
+
+1. the underlying work has at least one traceable, nonblank evidence source; and
+2. the concrete edition/file has at least one traceable, nonblank evidence source.
+
+Evidence present only for one layer cannot be reused as a substitute for missing evidence in the other layer. If either layer lacks evidence, classify E_UNCERTAIN_MANUAL_REVIEW.
 
 ## Evidence source classes
 
@@ -54,23 +59,25 @@ If authoritative sources conflict, classify E and create a manual-review reason.
 ## Minimum evidence by class
 
 A:
-- evidence for underlying work;
-- evidence for edition/file;
+- independent evidence for underlying work;
+- independent evidence for edition/file;
 - jurisdiction basis;
 - no unresolved conflict.
 
 B:
-- same as A;
+- independent evidence for both layers;
 - exact license/conditions captured.
 
 C:
-- evidence of NC restriction or equivalent no-commercial term.
+- independent evidence for both layers;
+- evidence establishing the NC restriction or equivalent no-commercial term on the applicable layer.
 
 D:
-- evidence of reserved rights / current protection / permission requirement.
+- independent evidence for both layers;
+- evidence establishing reserved rights / current protection / permission requirement on the applicable layer.
 
 E:
-- used whenever the above evidence threshold is not met.
+- used whenever either layer lacks evidence, is uncertain, or has unresolved conflicting evidence.
 
 ## Creative Commons operational mapping
 
@@ -90,7 +97,7 @@ Sources:
 
 Every decision should retain:
 
-- EvidenceURLs;
+- layer-specific EvidenceURLs;
 - EvidenceNotes;
 - classification timestamp;
 - classifier version;
