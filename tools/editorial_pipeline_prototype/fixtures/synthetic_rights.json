@@ -1,0 +1,184 @@
+{
+  "editions": [
+    {
+      "relative_path": "fixture/fiction/Invented River Fables.pdf",
+      "work_id": "fiction-work-pd",
+      "work_title": "Invented River Fables",
+      "edition_label": "fiction edition 1",
+      "translation_status": "NONE",
+      "edition_provenance_status": "SYNTHETIC_VERIFIED",
+      "underlying_status": "OPEN_COMMERCIAL",
+      "edition_status": "OPEN_COMMERCIAL",
+      "license_id": "PUBLIC-DOMAIN",
+      "derivative_adaptation_permission": "YES",
+      "territories": [
+        "CL"
+      ],
+      "jurisdiction": "CL",
+      "obligations": "none",
+      "evidence": {
+        "UNDERLYING": {
+          "source_url": "https://example.org/fiction/original-clearance",
+          "claim": "SYNTHETIC original public domain",
+          "status": "VERIFIED"
+        },
+        "EDITION": {
+          "source_url": "https://example.org/fiction/edition-clearance",
+          "claim": "SYNTHETIC file edition PD",
+          "status": "VERIFIED"
+        },
+        "DERIVATIVE": {
+          "source_url": "https://example.org/fiction/adaptation-clearance",
+          "claim": "SYNTHETIC adaptation permitted",
+          "status": "VERIFIED"
+        },
+        "TERRITORY": {
+          "source_url": "https://example.org/fiction/territory-cl",
+          "claim": "SYNTHETIC rights for Chile",
+          "status": "VERIFIED"
+        }
+      }
+    },
+    {
+      "relative_path": "fixture/fiction/Indigo Lantern Translation.epub",
+      "work_id": "fiction-work-old",
+      "work_title": "Indigo Lantern",
+      "edition_label": "invented modern translation",
+      "translation_status": "TRANSLATED_MODERN",
+      "edition_provenance_status": "SYNTHETIC_VERIFIED",
+      "underlying_status": "OPEN_COMMERCIAL",
+      "edition_status": "RIGHTS_RESERVED_OR_PERMISSION_REQUIRED",
+      "license_id": "ALL-RIGHTS-RESERVED",
+      "derivative_adaptation_permission": "UNKNOWN",
+      "territories": [
+        "CL"
+      ],
+      "jurisdiction": "CL",
+      "evidence": {
+        "UNDERLYING": {
+          "source_url": "https://example.org/fiction/old-original",
+          "claim": "SYNTHETIC original PD",
+          "status": "VERIFIED"
+        },
+        "EDITION": {
+          "source_url": "https://example.org/fiction/new-translation",
+          "claim": "SYNTHETIC protected modern translation",
+          "status": "VERIFIED"
+        }
+      }
+    },
+    {
+      "relative_path": "fixture/fiction/Unknown Moon Notes.pdf",
+      "work_id": "fiction-work-unknown",
+      "work_title": "Unknown Moon Notes",
+      "edition_label": "unidentified scan",
+      "underlying_status": "OPEN_COMMERCIAL",
+      "edition_status": "OPEN_COMMERCIAL",
+      "derivative_adaptation_permission": "YES",
+      "territories": [
+        "CL"
+      ],
+      "jurisdiction": "CL",
+      "evidence": {
+        "UNDERLYING": {
+          "source_url": "https://example.org/fiction/unknown-original",
+          "claim": "SYNTHETIC underlying has support",
+          "status": "VERIFIED"
+        }
+      }
+    },
+    {
+      "relative_path": "fixture/fiction/Copper Birds ND.txt",
+      "work_id": "fiction-work-nd",
+      "work_title": "Copper Birds",
+      "underlying_status": "OPEN_COMMERCIAL",
+      "edition_status": "COMMERCIAL_WITH_CONDITIONS",
+      "license_id": "CC-BY-ND",
+      "derivative_adaptation_permission": "NO",
+      "obligations": "Attribution; no distributed adaptations",
+      "territories": [
+        "CL"
+      ],
+      "jurisdiction": "CL",
+      "evidence": {
+        "UNDERLYING": {
+          "source_url": "https://example.org/fiction/copper-original",
+          "claim": "SYNTHETIC",
+          "status": "VERIFIED"
+        },
+        "EDITION": {
+          "source_url": "https://example.org/fiction/copper-edition",
+          "claim": "SYNTHETIC CC BY ND",
+          "status": "VERIFIED"
+        },
+        "TERRITORY": {
+          "source_url": "https://example.org/fiction/copper-territory",
+          "claim": "SYNTHETIC CL scope",
+          "status": "VERIFIED"
+        }
+      }
+    },
+    {
+      "relative_path": "fixture/fiction/Emerald Orchard BY.txt",
+      "work_id": "fiction-work-by",
+      "work_title": "Emerald Orchard",
+      "underlying_status": "OPEN_COMMERCIAL",
+      "edition_status": "COMMERCIAL_WITH_CONDITIONS",
+      "license_id": "CC-BY",
+      "derivative_adaptation_permission": "YES",
+      "obligations": "Attribution required",
+      "territories": [
+        "CL"
+      ],
+      "jurisdiction": "CL",
+      "evidence": {
+        "UNDERLYING": {
+          "source_url": "https://example.org/fiction/emerald-original",
+          "claim": "SYNTHETIC",
+          "status": "VERIFIED"
+        },
+        "EDITION": {
+          "source_url": "https://example.org/fiction/emerald-edition",
+          "claim": "SYNTHETIC CC BY",
+          "status": "VERIFIED"
+        },
+        "DERIVATIVE": {
+          "source_url": "https://example.org/fiction/emerald-adaptation",
+          "claim": "SYNTHETIC adaptation rights",
+          "status": "VERIFIED"
+        },
+        "TERRITORY": {
+          "source_url": "https://example.org/fiction/emerald-cl",
+          "claim": "SYNTHETIC CL",
+          "status": "VERIFIED"
+        }
+      }
+    },
+    {
+      "relative_path": "fixture/fiction/Paper Mountains NC.pdf",
+      "work_id": "fiction-work-nc",
+      "work_title": "Paper Mountains",
+      "underlying_status": "OPEN_COMMERCIAL",
+      "edition_status": "NONCOMMERCIAL_ONLY",
+      "license_id": "CC-BY-NC",
+      "derivative_adaptation_permission": "NO",
+      "obligations": "Noncommercial only",
+      "territories": [
+        "CL"
+      ],
+      "jurisdiction": "CL",
+      "evidence": {
+        "UNDERLYING": {
+          "source_url": "https://example.org/fiction/paper-original",
+          "claim": "SYNTHETIC",
+          "status": "VERIFIED"
+        },
+        "EDITION": {
+          "source_url": "https://example.org/fiction/paper-edition",
+          "claim": "SYNTHETIC NC restriction",
+          "status": "VERIFIED"
+        }
+      }
+    }
+  ]
+}
