@@ -257,6 +257,38 @@ class MigrationContractTests(unittest.TestCase):
         self.assertEqual(registry.verify(conn, expected_rows=17)
                          ["foreign_key_violations"], 0)
 
+    def test_28781_synthetic_accepted_shape_migration_preserves_ids(self):
+        conn = sqlite3.connect(self.source, isolation_level=None)
+        more = []
+        for idx in range(17, 28781):
+            name = f"Invented Reference {idx:05d}.pdf"
+            relative = f"fixture-only/record-{idx:05d}.pdf"
+            more.append((e.record_id(relative), "synthetic", relative,
+                         name, ".pdf", idx))
+        conn.executemany("INSERT INTO files VALUES(?,?,?,?,?,?)", more)
+        conn.executemany("INSERT INTO editions(record_id) VALUES(?)",
+                         [(x[0],) for x in more])
+        conn.executemany("INSERT INTO rights_layer_status(record_id) VALUES(?)",
+                         [(x[0],) for x in more])
+        conn.close()
+        target = self.dir / "large-fictional-derived.sqlite"
+        original_hash = registry.file_sha256(self.source)
+        receipt = registry.prepare_work_copy(
+            self.source, target,
+            expected_sha256=original_hash,
+            expected_rows=28781)
+        self.assertEqual(receipt["files"], 28781)
+        self.assertEqual(receipt["editions"], 28781)
+        self.assertEqual(registry.file_sha256(self.source), original_hash)
+        restored = sqlite3.connect(target, isolation_level=None)
+        try:
+            self.assertEqual(registry.verify(restored, expected_rows=28781)
+                             ["foreign_key_violations"], 0)
+            self.assertEqual(restored.execute(
+                "SELECT COUNT(*) FROM lr_rights_reviews").fetchone()[0], 0)
+        finally:
+            restored.close()
+
     def test_migration_idempotent_and_digest_locked(self):
         conn, original = self.open_copy()
         self.addCleanup(conn.close)
