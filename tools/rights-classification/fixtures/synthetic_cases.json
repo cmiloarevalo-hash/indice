@@ -1,0 +1,32 @@
+[
+  {
+    "case": "synthetic_public_domain_work_and_open_edition",
+    "underlying": {"status": "OPEN_COMMERCIAL", "evidence": ["https://example.invalid/work-a"]},
+    "edition": {"status": "OPEN_COMMERCIAL", "evidence": ["https://example.invalid/edition-a"]},
+    "expected": "A_COMMERCIAL_REUSE_CONFIRMED"
+  },
+  {
+    "case": "synthetic_cc_by_edition",
+    "underlying": {"status": "OPEN_COMMERCIAL", "evidence": ["https://example.invalid/work-b"]},
+    "edition": {"status": "COMMERCIAL_WITH_CONDITIONS", "license": "CC-BY", "evidence": ["https://example.invalid/edition-b"]},
+    "expected": "B_COMMERCIAL_WITH_CONDITIONS"
+  },
+  {
+    "case": "synthetic_nc_edition",
+    "underlying": {"status": "OPEN_COMMERCIAL", "evidence": ["https://example.invalid/work-c"]},
+    "edition": {"status": "NONCOMMERCIAL_ONLY", "license": "CC-BY-NC", "evidence": ["https://example.invalid/edition-c"]},
+    "expected": "C_NONCOMMERCIAL_ONLY"
+  },
+  {
+    "case": "synthetic_reserved_translation",
+    "underlying": {"status": "OPEN_COMMERCIAL", "evidence": ["https://example.invalid/work-d"]},
+    "edition": {"status": "RIGHTS_RESERVED_OR_PERMISSION_REQUIRED", "evidence": ["https://example.invalid/edition-d"]},
+    "expected": "D_RIGHTS_RESERVED_OR_PERMISSION_REQUIRED"
+  },
+  {
+    "case": "synthetic_ambiguous_edition",
+    "underlying": {"status": "OPEN_COMMERCIAL", "evidence": ["https://example.invalid/work-e"]},
+    "edition": {"status": "UNCERTAIN", "evidence": []},
+    "expected": "E_UNCERTAIN_MANUAL_REVIEW"
+  }
+]
