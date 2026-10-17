@@ -142,6 +142,13 @@ class BadClaimsFailClosedTests(unittest.TestCase):
                         ["commercial_A_or_B"])
         e.start_project(self.connection, BY, "positive-by-sa", "CL")
 
+    def test_by_claimed_unconditional_a_fails_closed(self):
+        self.change("Emerald Orchard", license_id="CC-BY-4.0",
+                    edition_status="OPEN_COMMERCIAL")
+        self.assertEqual(e.rights_status(self.connection, BY)["class"], e.FINAL_E)
+        with self.assertRaises(e.GateError):
+            e.start_project(self.connection, BY, "false-a", "CL")
+
     def test_nd_with_no_adaptation_stays_conditional_for_verbatim(self):
         self.change("Copper Birds", license_id="CC-BY-ND-4.0")
         self.assertEqual(e.rights_status(self.connection, ND)["class"], e.FINAL_B)
@@ -220,6 +227,36 @@ class MigrationContractTests(unittest.TestCase):
                          {"migrated": True, "evidence": 0, "licenses": 0, "reviews": 0})
         self.assertEqual(len(registry.find_records(conn, "Reference 01", limit=10)), 7)
 
+    def test_provenance_writes_are_relational_and_pending_by_default(self):
+        conn, _ = self.open_copy()
+        self.addCleanup(conn.close)
+        record_id = self.rows[0][0]
+        stamp = "2026-10-16T21:00:00Z"
+        registry.record_source(
+            conn, source_id="src-1", institution="Fictional Authority",
+            url="https://example.invalid/registry", kind="AUTHORITY",
+            tier="INVENTED_SYNTHETIC", accessed_utc=stamp)
+        registry.record_unverified_evidence(
+            conn, evidence_id="ev-1", record_id=record_id,
+            source_id="src-1", scope="ORIGINAL_WORK",
+            claim_summary="Fictional creator attribution; not a license",
+            retrieved_utc=stamp)
+        registry.record_pending_review(
+            conn, review_id="review-1", record_id=record_id,
+            jurisdiction="CL", blockers="Concrete edition not evidenced",
+            created_utc=stamp)
+        self.assertEqual(registry.registry_counts(conn),
+                         {"migrated": True, "evidence": 1, "licenses": 0, "reviews": 1})
+        self.assertEqual(conn.execute(
+            "SELECT evidence_status FROM lr_evidence WHERE evidence_id='ev-1'"
+        ).fetchone()[0], "UNVERIFIED")
+        self.assertEqual(conn.execute(
+            "SELECT commercial_class FROM lr_rights_reviews "
+            "WHERE review_id='review-1'"
+        ).fetchone()[0], "E_UNCERTAIN_MANUAL_REVIEW")
+        self.assertEqual(registry.verify(conn, expected_rows=17)
+                         ["foreign_key_violations"], 0)
+
     def test_migration_idempotent_and_digest_locked(self):
         conn, original = self.open_copy()
         self.addCleanup(conn.close)
@@ -272,6 +309,30 @@ class MigrationContractTests(unittest.TestCase):
             registry.prepare_work_copy(
                 self.source, self.source,
                 expected_rows=17)
+
+    def test_public_cli_synthetic_compatibility_and_source_readonly(self):
+        import subprocess
+        import sys
+
+        conn, _ = self.open_copy()
+        conn.close()
+        target = self.dir / "derived-fictional.sqlite"
+        args = [sys.executable, "-m", "tools.editorial_pipeline_prototype.cli",
+                "--db", str(target), "rights-registry-summary"]
+        result = subprocess.run(args, check=True, capture_output=True, text=True)
+        self.assertEqual(json.loads(result.stdout)["migrated"], True)
+        args = [sys.executable, "-m", "tools.editorial_pipeline_prototype.cli",
+                "--db", str(self.source), "rights-verify",
+                "--expected-rows", "17"]
+        result = subprocess.run(args, check=True, capture_output=True, text=True)
+        self.assertEqual(json.loads(result.stdout)["files"], 17)
+        # The legacy CSV -> brand-new DB CLI is synthetic-only.
+        prohibited = subprocess.run(
+            [sys.executable, "-m", "tools.editorial_pipeline_prototype.cli",
+             "--db", str(self.source), "init"],
+            capture_output=True, text=True)
+        self.assertNotEqual(prohibited.returncode, 0)
+        self.assertIn("--synthetic-fixture", prohibited.stderr)
 
     def test_wrong_counts_cannot_migrate(self):
         conn = sqlite3.connect(self.source, isolation_level=None)
