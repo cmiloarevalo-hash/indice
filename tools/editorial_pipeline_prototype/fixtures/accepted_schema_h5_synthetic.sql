@@ -10,7 +10,7 @@ CREATE TABLE source_snapshots (
   sha256 TEXT NOT NULL,
   record_count INTEGER NOT NULL,
   created_utc TEXT NOT NULL,
-  original_modified INTEGER NOT NULL
+  original_modified INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE files (
@@ -22,7 +22,7 @@ CREATE TABLE files (
   extension TEXT NOT NULL,
   size_bytes INTEGER NOT NULL,
   directory_relative_path TEXT NOT NULL,
-  actual_stat_status TEXT NOT NULL
+  actual_stat_status TEXT NOT NULL DEFAULT 'NOT_AVAILABLE'
 );
 CREATE INDEX idx_file_name ON files(name);
 
@@ -31,7 +31,7 @@ CREATE TABLE works (
   authority_title TEXT NOT NULL,
   authority_url TEXT,
   confidence TEXT NOT NULL,
-  file_identity_verified INTEGER NOT NULL
+  file_identity_verified INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE authors (
@@ -58,7 +58,7 @@ CREATE TABLE editions (
   edition_year TEXT,
   embedded_rights_statement TEXT,
   metadata_status TEXT NOT NULL,
-  edition_license_verified INTEGER NOT NULL
+  edition_license_verified INTEGER NOT NULL DEFAULT 0
 );
 CREATE INDEX idx_edition_work ON editions(work_id);
 
@@ -80,11 +80,11 @@ CREATE TABLE rights_layer_status (
   derivative_status TEXT NOT NULL,
   territories_status TEXT NOT NULL,
   commercial_class TEXT NOT NULL,
-  commercial_royalty_free_confirmed INTEGER NOT NULL,
+  commercial_royalty_free_confirmed INTEGER NOT NULL DEFAULT 0,
   underlying_conditional_year TEXT,
   edition_release_year TEXT,
   combined_release_year TEXT,
-  jurisdiction TEXT NOT NULL,
+  jurisdiction TEXT NOT NULL DEFAULT 'CL_REQUIRES_REVIEW',
   certainty TEXT NOT NULL,
   blocking_reason TEXT NOT NULL
 );
