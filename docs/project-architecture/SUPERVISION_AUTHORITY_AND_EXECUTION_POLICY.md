@@ -43,4 +43,123 @@ El Supervisor verifica **HEAD exacto**, diff, pruebas, integridad y seguridad, y
 
 Esta decisión del Human (2026-10-17) **reemplaza únicamente las pausas anteriores por falta de autorización humana** de H5, H6, #10 y #22. Conserva aceptación H0–H3, inmutabilidad #21, separación público/privado, obligación de pruebas y restricciones técnicas. Los comentarios e historiales anteriores permanecen trazables, pero las frases «WAITING_HUMAN_DECISION», «H5/H6 NO AUTORIZADOS» o «#22 SUSPENDIDO» dejan de ser el estado operativo vigente para estas actividades. Permisos técnicos pendientes (por ejemplo, scope `workflow`) siguen pendientes de concesión real.
 
-**Estado de gobierno:** `HUMAN_AUTHORIZED_SUPERVISOR_CONTINUATION`; **siguiente trabajo implementable:** H5, sujeto a acceso legítimo al repositorio privado; H4 sigue `WORKFLOW_PERMISSION_BLOCKED` si el permiso aún no existe. No confundir autorización con ejecución completada.
+**Estado de gobierno:** `HUMAN_AUTHORIZED_SUPERVISOR_CONTINUATION`. **Control técnico vigente:** H5 tiene migración inicial reportada satisfactoria sobre copia, pero permanece `BLOCKED_FINAL_VALIDATION` en PR #20, HEAD `b566799691d3caef1db9c920a5e69ca325772d71`: no existe prueba Python final para ese HEAD. H6 no debe comenzar antes de aceptación de H5. H4 sigue `WORKFLOW_PERMISSION_BLOCKED`. La autorización del Human no reemplaza las validaciones ni permite repetir una operación rechazada por otro canal.
+
+
+## 6. Protocolo canónico de intercambio entre actores Web — ACTIVO
+
+**Clase documental:** NORMATIVE, vigente; **lector:** SUPERVISOR_WEB, IMPLEMENTER_WEB y agentes sucesores; **mantenedor:** SUPERVISOR_WEB; **actualización:** cambio humano o cambio verificable del contrato de transporte; **lugar canónico:** este mismo archivo (no crear documentos duplicados).
+
+**Fuente exclusivamente de consulta:** contrato existente en el repositorio de referencia de transporte, revisión `e22a83a174e54c2b24fbd3aeffd9be17eb847672` de 2026-10-17; se revisaron el contrato `ACTUATION_REQUEST` (§33), `WORKFLOW_PLAN` (§6/§14/§18/§20) y los validadores y renderizadores de los dos roles. **Prohibición absoluta respecto del repositorio de referencia:** solo lectura para estudio, nunca escribir, comentar, crear tickets, modificar archivos/ramas, disparar workflows, configurar su servicio ni enviarle mensajes o solicitudes de trabajo. Esta incorporación se efectúa **exclusivamente en `cmiloarevalo-hash/indice`**.
+
+### 6.1 Identidades y traspasos de vocabulario cerrado
+
+Los identificadores **exactos** son `SUPERVISOR_WEB` y `IMPLEMENTER_WEB`; no abreviar como `IMPLEMENTER` en los sobres de transporte. Direcciones permitidas:
+
+| Autor del payload persistido | Destinatario exacto | `handoffKind` | Resultado de trabajo esperado |
+| --- | --- | --- | --- |
+| `SUPERVISOR_WEB` | `IMPLEMENTER_WEB` | `IMPLEMENTER_WORK_ITEM` | Ejecutar únicamente la actividad abierta |
+| `IMPLEMENTER_WEB` | `SUPERVISOR_WEB` | `SUPERVISOR_REVIEW` | Verificar entrega en PR y SHA exacto |
+
+Un mensaje operativo debe empezar por `DESTINATARIO: IMPLEMENTER_WEB` o `DESTINATARIO: SUPERVISOR_WEB`, según corresponda, y **no** por un encabezado genérico. Si llega al destinatario incorrecto: `DESTINATARIO_INCORRECTO`, no ejecutar, no reinterpretar ni reenviar por inferencia.
+
+**Sobres de salida que genera el transporte — mantener nombres literales:**
+
+Para Implementer:
+```text
+DESTINATARIO: IMPLEMENTER_WEB
+REPOSITORIO: cmiloarevalo-hash/indice
+WORK ITEM: #19
+WORK ITEM REF: https://github.com/cmiloarevalo-hash/indice/issues/19
+AUTHORIZATION REF: <referencia persistente aplicable>
+PAYLOAD SOURCE: <URL exacta de comentario GitHub persistido>
+
+<texto literal de la instrucción del Supervisor, idéntico al comentario fuente>
+```
+
+Para Supervisor, ante una PR:
+```text
+DESTINATARIO: SUPERVISOR_WEB
+REPOSITORIO: cmiloarevalo-hash/indice
+WORK ITEM: #19
+WORK ITEM REF: https://github.com/cmiloarevalo-hash/indice/issues/19
+PR: #20
+PR REF: https://github.com/cmiloarevalo-hash/indice/pull/20
+EXPECTED REVISION: <SHA Git exacto de 40 caracteres>
+AUTHORIZATION REF: <referencia persistente aplicable>
+PAYLOAD SOURCE: <URL exacta de comentario GitHub persistido>
+
+<texto literal de la entrega del Implementer, idéntico al comentario fuente>
+
+PROJECT_ALIGNMENT_CHECK
+Verify only from GitHub/Workflow:
+- active Work Item + parent Milestone still trace to the product objective;
+- no material process/infrastructure drift has accumulated;
+- no material scope creep is present.
+Persist exactly one result in GitHub/Workflow:
+ALIGNED | HOLD | HUMAN_REVIEW_REQUIRED
+```
+
+El contenido entre `<...>` es marcador explicativo, **nunca** valor válido de una solicitud real. El Supervisor y el Implementer redactan el **payload**; el sobre lo construye el transporte desde estado factual. El texto del payload debe coincidir **byte por byte** con el cuerpo del comentario en GitHub; no inventar URL `#issuecomment-`, ni un comentario que no existe. El traspaso requiere que el comentario pertenezca al buzón/ruta preconfigurado para el autor y el receptor, sin presuponer que ese buzón esté activo.
+
+### 6.2 Estructura interna de solicitud consumible por el transporte
+
+`ACTUATION_REQUEST` debe contener **solamente** estas claves y tipos; nunca autoriza trabajo por texto libre:
+
+```json
+{
+  "kind": "ACTUATION_REQUEST",
+  "workItem": {"repository": "cmiloarevalo-hash/indice", "number": 19},
+  "authorization": "https://github.com/cmiloarevalo-hash/indice/issues/19",
+  "expectedRevision": null,
+  "targetActor": "IMPLEMENTER_WEB",
+  "handoffKind": "IMPLEMENTER_WORK_ITEM",
+  "humanRequired": false,
+  "humanAuthorization": null,
+  "externalEffect": "NONE",
+  "deliveryLimit": 0,
+  "contextRefs": [],
+  "stopConditions": ["Role, Work Item, authorization or current activity does not match GitHub"]
+}
+```
+
+Ejemplo **inertemente documental** (`NONE/0`, no entrega externa). Para un `SUPERVISOR_REVIEW` deben cambiar juntos el destinatario a `SUPERVISOR_WEB`, `handoffKind` a `SUPERVISOR_REVIEW` y `expectedRevision` a un SHA exacto de 40 dígitos **que coincida con el HEAD factual de la PR**. La revisión requiere contexto factual PR; no usar `null`/NONE allí.
+
+Solo las parejas `externalEffect: NONE` + `deliveryLimit: 0` o `externalEffect: PROMPT_DELIVERY` + `deliveryLimit: 1` son válidas. La segunda **no** autoriza un envío real por sí sola: se requieren el control de autorización humana específico y concordante que exija el mecanismo, sesión de destinatario comprobada, buzón origen factual y prueba de legitimidad. La autorización general para trabajar en Biblioteca no equivale automáticamente a un permiso técnico de Send para cualquier actor/sesión/PR. Si Send fue incierto (`UNCERTAIN_AFTER_SEND`), **STOP sin reintento**. La entrega mecánica nunca es prueba de que el destinatario ejecutó, respondió o aprobó; el transporte de referencia es *output-blind*.
+
+### 6.3 Apertura y cierre de subactividad sin proliferar Work Items
+
+El **único Work Item rector sigue siendo #19**, y la **PR #20** conserva el código actual sin merge. Cada nuevo tramo material se identifica como `CICLO-NNNN` dentro del mismo expediente: nunca convertir cada lote o cambio en issue nuevo. Existe **máximo una subactividad activa por Implementer**.
+
+**Apertura por SUPERVISOR_WEB:** primero registrar de manera durable en #19 (o en comentario del buzón GitHub aplicable verificado) un `ACTIVITY_OPEN` con:
+```text
+ACTIVITY_OPEN
+CYCLE_ID: CICLO-NNNN
+TARGET_ROLE: IMPLEMENTER_WEB
+REPOSITORY: cmiloarevalo-hash/indice
+WORK_ITEM: #19
+ACTIVITY: <identificador acotado>
+AUTHORITY_REF: <URL GitHub factual>
+BASE_SHA: <40-hex confirmado o N/A por causa>
+OBJECTIVE:
+ACCEPTANCE_CRITERIA:
+SEMANTIC_SCOPE:
+PATH_SCOPE:
+RESOURCE_SCOPE:
+VERIFICATION:
+STOP_CONDITIONS:
+RETURN_TO: SUPERVISOR_WEB
+STATE: OPEN / AUTHORIZED
+```
+
+**Entrega por IMPLEMENTER_WEB:** persistir respuesta con `CYCLE_ID`, `ACTIVITY`, `WORK_ITEM`, `BRANCH/PR`, `BASE`, `HEAD` exacto, archivos/recursos modificados, ejecución real, pruebas/CI, límites, evidencias, bloqueos y `STATE: READY_FOR_SUPERVISOR_REVIEW` o `BLOCKED_RETURN_TO_SUPERVISOR`. Usar `SUPERVISOR_REVIEW` con `EXPECTED REVISION` exacto cuando haya PR.
+
+**Revisión y cierre por SUPERVISOR_WEB:** verificar independientemente HEAD, diff, alcance y evidencia; publicar `PROJECT_ALIGNMENT_CHECK: ALIGNED | HOLD | HUMAN_REVIEW_REQUIRED` y una decisión `ACCEPT | REWORK | BLOCK | ESCALATE`. En caso de aceptación, la subactividad se cierra como `ACTIVITY_CLOSE: ACCEPTED`; si hay corrección, `ACTIVITY_CLOSE: REWORK_REQUIRED` seguida de nueva actividad; ante bloqueo, `ACTIVITY_CLOSE: BLOCKED` con causa, operaciones no repetibles y próxima actividad lícita. El cierre de subactividad **no** cierra #19: Supervisor abre `CICLO-(N+1)` después de cada revisión, salvo que el proyecto entero satisfaga sus criterios finales. El siguiente ciclo **no supone** un nuevo Send autorizado automáticamente.
+
+**Contrato de actividad exigible al Implementer:** ejecutar código, pruebas, investigación y registros reales; nunca devolver otro prompt como sustituto. H5 sigue `BLOCKED_FINAL_VALIDATION`, H6 espera revisión legítima de H5; no eludir el rechazo de herramientas. El objetivo final sigue siendo 28.781 registros con investigación trazable y clasificación prudente; resultados `E/UNKNOWN` son admisibles cuando hay insuficiencia probatoria documentada.
+
+### 6.4 Recuperación y diferencias entre protocolo y transporte real
+
+Todo agente nuevo reconstruye primero #19, mandato canónico, comentario durable vigente, PR/HEAD exacto, estado de bloqueo y recursos permitidos; pasa el control de destinatario antes de ejecutar. Si falta una referencia factual, el payload está desactualizado, el rol no coincide o la configuración del buzón/sesión no está demostrada: `STOP / ROUTING_MISMATCH` o `BLOCKED`, sin transformación inferida ni operaciones externas.
+
+La adopción documental de esta estructura **no instala ni conecta automáticamente el software de transporte**. Solo se puede afirmar `REQUEST_READY`, `PROMPT_READY` o `HANDOFF_TECHNICAL_SUCCESS` cuando el componente correspondiente lo haya comprobado realmente; un archivo guardado o una revisión escrita no significan que se haya enviado nada. Todo registro canónico/decisión operativa se escribe en **Biblioteca**, nunca en el repositorio de consulta.
