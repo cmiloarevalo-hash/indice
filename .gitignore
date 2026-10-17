@@ -9,6 +9,14 @@ Thumbs.db
 .env
 .env.*
 
+# Python and local derived SQLite (never commit real/derived databases)
+__pycache__/
+*.py[cod]
+*.sqlite
+*.sqlite3
+*.db
+local-synthetic-report.json
+
 # Build / generated / temporary output
 dist/
 build/
