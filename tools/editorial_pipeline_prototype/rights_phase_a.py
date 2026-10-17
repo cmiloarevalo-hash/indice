@@ -140,20 +140,16 @@ def classify(
 
 
 def status_from_license(license_id: str) -> LayerStatus:
-    """Normalize common license labels without deciding item identity/jurisdiction."""
+    """One central parser; a candidate term is not item-level legal proof."""
+    from .licenses import parse_license
 
-    value = license_id.strip().upper().replace("_", "-")
-
-    if value in {"CC0", "PUBLIC-DOMAIN", "PUBLIC-DOMAIN-MARK", "PDM"}:
-        return LayerStatus.OPEN_COMMERCIAL
-
-    if value in {"CC-BY", "CC-BY-SA", "CC-BY-ND"}:
-        return LayerStatus.COMMERCIAL_WITH_CONDITIONS
-
-    if value in {"CC-BY-NC", "CC-BY-NC-SA", "CC-BY-NC-ND"}:
-        return LayerStatus.NONCOMMERCIAL_ONLY
-
-    if value in {"ALL-RIGHTS-RESERVED", "PERMISSION-REQUIRED"}:
+    terms = parse_license(license_id)
+    if not terms.recognized:
+        return LayerStatus.UNCERTAIN
+    if terms.legal_basis == "RESERVED":
         return LayerStatus.RIGHTS_RESERVED_OR_PERMISSION_REQUIRED
-
-    return LayerStatus.UNCERTAIN
+    if terms.commercial is False:
+        return LayerStatus.NONCOMMERCIAL_ONLY
+    if terms.legal_basis == "LICENSE" and terms.attribution:
+        return LayerStatus.COMMERCIAL_WITH_CONDITIONS
+    return LayerStatus.OPEN_COMMERCIAL
