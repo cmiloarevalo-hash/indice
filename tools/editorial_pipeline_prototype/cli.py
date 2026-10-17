@@ -5,6 +5,9 @@ import tempfile
 from pathlib import Path
 
 from . import engine as e
+from . import registry as r
+import sqlite3
+from urllib.parse import quote
 
 HERE = Path(__file__).parent
 FIXTURE_CSV = HERE / "fixtures" / "synthetic_catalog.csv"
@@ -15,6 +18,8 @@ RIVER = "fixture/fiction/Invented River Fables.pdf"
 def main(argv=None):
     p = argparse.ArgumentParser(description="Local SQLite editorial MVP; NO publication or AI calls")
     p.add_argument("--db", help="SQLite database path (local/private only)")
+    p.add_argument("--synthetic-fixture", action="store_true",
+                   help="Required for legacy CSV import and editorial simulation")
     commands = p.add_subparsers(dest="command", required=True)
     commands.add_parser("init")
     cmd = commands.add_parser("import-catalog")
@@ -47,6 +52,20 @@ def main(argv=None):
     cmd = commands.add_parser("authorize-publication-simulation")
     cmd.add_argument("--project-id", required=True)
     commands.add_parser("demo")
+    cmd = commands.add_parser("rights-prepare-copy",
+                              help="Future authorized read-only source -> NEW SQLite work copy")
+    cmd.add_argument("--source-sqlite", required=True)
+    cmd.add_argument("--out", required=True)
+    cmd.add_argument("--source-sha256", required=True)
+    cmd.add_argument("--expected-rows", type=int, default=28781)
+    cmd = commands.add_parser("rights-verify",
+                              help="Read-only schema/identity/integrity validation")
+    cmd.add_argument("--expected-rows", type=int, default=28781)
+    cmd = commands.add_parser("rights-search",
+                              help="Local-only name query; never run on public CI with private data")
+    cmd.add_argument("--phrase", required=True)
+    cmd.add_argument("--limit", type=int, default=25)
+    commands.add_parser("rights-registry-summary")
     args = p.parse_args(argv)
     if args.command == "demo":
         if args.db:
@@ -71,8 +90,37 @@ def main(argv=None):
             finally:
                 conn.close()
         return 0
+    if args.command == "rights-prepare-copy":
+        if args.db:
+            p.error("Use --source-sqlite and --out, never --db, for work-copy")
+        result = r.prepare_work_copy(
+            Path(args.source_sqlite), Path(args.out),
+            expected_sha256=args.source_sha256,
+            expected_rows=args.expected_rows)
+        print(json.dumps(result, indent=2, ensure_ascii=False))
+        return 0
     if not args.db:
         p.error("--db is required for persistent local operations")
+    if args.command in ("init", "import-catalog", "import-rights",
+                        "start-project", "simulate-editorial", "review-gate",
+                        "preflight", "authorize-publication-simulation"):
+        if not args.synthetic_fixture:
+            p.error("Legacy prototyping operations require --synthetic-fixture; "
+                    "DO NOT recreate the accepted SQLite from CSV.")
+    if args.command in ("rights-verify", "rights-search", "rights-registry-summary"):
+        uri = "file:" + quote(Path(args.db).resolve().as_posix(), safe="/:") + "?mode=ro"
+        conn = sqlite3.connect(uri, uri=True)
+        try:
+            if args.command == "rights-verify":
+                output = r.verify(conn, expected_rows=args.expected_rows)
+            elif args.command == "rights-search":
+                output = r.find_records(conn, args.phrase, limit=args.limit)
+            else:
+                output = r.registry_counts(conn)
+            print(json.dumps(output, indent=2, ensure_ascii=False))
+            return 0
+        finally:
+            conn.close()
     conn = e.connect(args.db)
     try:
         if args.command=="init":out=e.init_db(conn)
