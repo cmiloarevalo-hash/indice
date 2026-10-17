@@ -1,6 +1,8 @@
 # Biblioteca — Investigación documental y clasificación de derechos
 
-**Objetivo operativo:** investigar fuentes, licencias y derechos de los 28.781 registros bibliográficos del catálogo privado, preservando `E/UNKNOWN` cuando no existe evidencia jurídica suficiente.
+**OBJETIVO OPERATIVO VIGENTE (decisión humana, 17-10-2026):** usar la base SQLite canónica `biblioteca_derechos.sqlite` para **investigar y determinar, con evidencia trazable, el tipo de licencia o estado jurídico de cada libro/edición** de los 28.781 registros. Registrar titular/fuente, jurisdicción, condiciones y permisos por uso; ausencia de evidencia = `E/UNKNOWN`, no licencia concedida. **Ejecución inmediata restringida a un piloto de los primeros 100 registros**, previa resolución de los gates técnicos legítimos. No iniciar otros lotes automáticamente.
+
+**Objetivos anteriores:** localización, catálogo, traslado desde Drive y respaldo GitHub SQLite = entregables documentados en #17/#21, **no tareas activas**. CSV = antecedente histórico de procedencia, no motor ni fuente de selección. Prototipo/arquitectura #19/PR #20 = soporte técnico sujeto a revisión, **no objetivo de negocio independiente**. Investigación literaria, uso editorial de IA, monetización y publicación = **fuera de la fase actual**. Preservar documentación histórica sin seguirla si contradice esta decisión.
 
 **Único Work Item rector:** [#19 — Supervisión continua](https://github.com/cmiloarevalo-hash/indice/issues/19).  
 **Código vigente en revisión:** [PR #20](https://github.com/cmiloarevalo-hash/indice/pull/20), sin merge.  
@@ -8,7 +10,7 @@
 
 **Identificadores exactos:** `SUPERVISOR_WEB` y `IMPLEMENTER_WEB`. Antes de ejecutar, validar `DESTINATARIO`, `REPOSITORIO`, `WORK ITEM`, `ACTIVITY`, autorizaciones y revisión/HEAD; documentar apertura y cierre de cada ciclo en #19. El Supervisor dirige y revisa; el Implementer solo ejecuta el trabajo encargado. El transporte de prompts no supone ejecución, lectura de respuesta ni aprobación.
 
-La SQLite real y sus evidencias permanecen exclusivamente en el repositorio privado; el código público no incorpora datos reales, libros completos ni credenciales.
+La SQLite real y sus evidencias permanecen exclusivamente en el repositorio privado; el código público no incorpora datos reales, libros completos ni credenciales. Ninguna prueba no ejecutada puede declararse satisfactoria.
 
 ## Registro canónico de la fuente de investigación
 
@@ -22,7 +24,6 @@ La SQLite real y sus evidencias permanecen exclusivamente en el repositorio priv
 - Tamaño documentado: 56.938.496 bytes; 28.781 registros según manifiesto y [respaldo verificado #21](https://github.com/cmiloarevalo-hash/indice/issues/21).
 
 **Regla para todos los agentes:** obtener la base desde la rama y commit explícitos mediante acceso autorizado; **no buscarla en `main`**. Utilizar SQLite como fuente de consultas y derechos. Los CSV previos permanecen solo para procedencia, verificación o exportación autorizada, **no como base operativa alternativa**. Distinguir el respaldo documentado de una nueva comprobación byte a byte. La SQLite almacena metadatos, no textos completos. Para actividades concretas se mantienen las puertas y bloqueos del Work Item rector #19; esta ubicación no autoriza eludirlos.
- Ninguna prueba no ejecutada puede declararse satisfactoria.
 
 ---
 
