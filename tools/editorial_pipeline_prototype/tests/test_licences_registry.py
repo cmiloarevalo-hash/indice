@@ -55,6 +55,14 @@ class LicenseSemanticsTests(unittest.TestCase):
                 self.assertFalse(parse_license(raw).recognized)
                 self.assertIsNone(parse_license(raw).commercial)
 
+    def test_public_domain_mark_is_not_a_license_grant(self):
+        for token in ("PDM", "PUBLIC-DOMAIN-MARK",
+                      "https://creativecommons.org/publicdomain/mark/1.0/"):
+            terms = parse_license(token)
+            self.assertFalse(terms.recognized)
+            self.assertIsNone(terms.commercial)
+            self.assertIsNone(terms.adaptation)
+
     def test_nd_verbatim_commercial_distinct_from_adaptation(self):
         terms = parse_license("CC-BY-ND-4.0")
         self.assertTrue(terms.commercial)
