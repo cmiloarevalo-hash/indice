@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import sqlite3
+from contextlib import closing
 import tempfile
 import unittest
 from pathlib import Path
@@ -63,7 +64,7 @@ class AcceptedRealShapeSyntheticTests(unittest.TestCase):
             db.close()
 
     def test_real_edition_pk_and_file_fk_are_distinct_from_old_mock(self):
-        with sqlite3.connect(self.source) as db:
+        with closing(sqlite3.connect(self.source)) as db:
             fields = {row[1]: row[5] for row in db.execute(
                 "PRAGMA table_info(editions)")}
             self.assertEqual(fields["edition_id"], 1)
@@ -87,7 +88,7 @@ class AcceptedRealShapeSyntheticTests(unittest.TestCase):
         self.assertEqual(result["integrity_check"], "ok")
         self.assertEqual(result["foreign_key_violations"], 0)
         self.assertEqual(result["migration"], 1)
-        with sqlite3.connect(destination, isolation_level=None) as db:
+        with closing(sqlite3.connect(destination, isolation_level=None)) as db:
             self.assertEqual(
                 {row[0] for row in db.execute(
                     "SELECT record_id FROM files")},
@@ -131,7 +132,7 @@ class AcceptedRealShapeSyntheticTests(unittest.TestCase):
             self.source, destination,
             expected_sha256=registry.file_sha256(self.source),
             expected_rows=3)
-        with sqlite3.connect(destination) as db:
+        with closing(sqlite3.connect(destination)) as db:
             existing = db.execute(
                 "SELECT COUNT(*) FROM rights_layer_status "
                 "WHERE commercial_class='E_UNCERTAIN_MANUAL_REVIEW'"
@@ -142,7 +143,7 @@ class AcceptedRealShapeSyntheticTests(unittest.TestCase):
             self.assertEqual(new_reviews, 0)
 
     def test_fk_on_realshaped_edition_id_enforced(self):
-        with sqlite3.connect(self.source, isolation_level=None) as db:
+        with closing(sqlite3.connect(self.source, isolation_level=None)) as db:
             db.execute("PRAGMA foreign_keys=ON")
             with self.assertRaises(sqlite3.IntegrityError):
                 db.execute(
