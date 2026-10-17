@@ -259,6 +259,7 @@ class MigrationContractTests(unittest.TestCase):
 
     def test_28781_synthetic_accepted_shape_migration_preserves_ids(self):
         conn = sqlite3.connect(self.source, isolation_level=None)
+        conn.execute("BEGIN IMMEDIATE")  # one synthetic transaction, not 86k fsyncs
         more = []
         for idx in range(17, 28781):
             name = f"Invented Reference {idx:05d}.pdf"
@@ -270,6 +271,7 @@ class MigrationContractTests(unittest.TestCase):
                          [(x[0],) for x in more])
         conn.executemany("INSERT INTO rights_layer_status(record_id) VALUES(?)",
                          [(x[0],) for x in more])
+        conn.execute("COMMIT")
         conn.close()
         target = self.dir / "large-fictional-derived.sqlite"
         original_hash = registry.file_sha256(self.source)
