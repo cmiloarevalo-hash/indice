@@ -1,3 +1,7 @@
+> **ACTUALIZACIÓN OPERATIVA #19 H1–H3:** El diseño vigente es Python + SQLite de metadatos aceptada #21, sin dependencia D:, sin importación recurrente CSV ni módulo editorial en producción. El diagrama abajo es HISTÓRICO, no define el flujo activo. Ver [CURRENT_ENGINE_H1_H3.md](CURRENT_ENGINE_H1_H3.md) y el README del paquete Python. El snapshot de #21 está en su rama privada y no en main. No se tocó la SQLite real en este trabajo.
+
+---
+
 # Arquitectura mínima v2 — componentes y contratos
 
 Un solo paquete público Python (tools/editorial_pipeline_prototype) + sqlite3; **el mismo motor local Windows y GitHub Actions Ubuntu**. No microservicios ni segunda implementación SQLite. Biblioteca Desktop V1 sigue separada.
