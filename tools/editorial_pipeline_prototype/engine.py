@@ -421,10 +421,18 @@ def preflight(connection, project_id, *, public_domain_free_version=False):
 
 def authorize_publication_simulation(connection, project_id):
     row = connection.execute(
-        "SELECT state,human_publish_authorization FROM editorial_projects WHERE project_id=?",
+        "SELECT state,human_publish_authorization,edition_id,territory "
+        "FROM editorial_projects WHERE project_id=?",
         (project_id,)).fetchone()
-    if not row or row!=(PRE_PUBLICATION,1):
+    if not row or row[:2] != (PRE_PUBLICATION, 1):
         raise GateError("Explicit human_publish_authorization required after all gates")
+    # Rights and evidence may be revoked AFTER earlier project preflight.
+    gates = eligibility(connection, row[2], row[3])
+    required = ("rights_underlying_verified", "rights_specific_source_edition_verified",
+                "derivative_adaptation_rights_verified", "territories_verified",
+                "attribution_obligations", "commercial_A_or_B")
+    if not all(gates[key] for key in required):
+        raise GateError("STOP: rights changed since simulated preflight")
     with connection:
         connection.execute("UPDATE editorial_projects SET "
             "state='HUMAN_PUBLICATION_AUTHORIZED_SIMULATION',updated_utc=? WHERE project_id=?",
