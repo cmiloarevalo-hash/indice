@@ -203,3 +203,56 @@ def registry_counts(conn: sqlite3.Connection) -> dict:
             "evidence": conn.execute("SELECT COUNT(*) FROM lr_evidence").fetchone()[0],
             "licenses": conn.execute("SELECT COUNT(*) FROM lr_license_claims").fetchone()[0],
             "reviews": conn.execute("SELECT COUNT(*) FROM lr_rights_reviews").fetchone()[0]}
+
+
+def record_source(conn: sqlite3.Connection, *, source_id: str, institution: str,
+                  url: str, kind: str, tier: str, accessed_utc: str) -> None:
+    """Append an explicit source to the migrated registry; never retrieve the URL."""
+    _require_registry(conn)
+    conn.execute(
+        "INSERT INTO lr_sources(source_id,institution,url,kind,tier,accessed_utc) "
+        "VALUES(?,?,?,?,?,?)",
+        (source_id, institution, url, kind, tier, accessed_utc),
+    )
+
+
+def record_unverified_evidence(
+    conn: sqlite3.Connection, *, evidence_id: str, record_id: str,
+    source_id: str, scope: str, claim_summary: str, retrieved_utc: str,
+) -> None:
+    """Capture a new factual claim without silently certifying its legal effect."""
+    _require_registry(conn)
+    if not claim_summary.strip():
+        raise ValueError("A scoped factual claim is required")
+    conn.execute(
+        "INSERT INTO lr_evidence("
+        "evidence_id,record_id,source_id,scope,claim_summary,"
+        "evidence_status,retrieved_utc) VALUES(?,?,?,?,?,'UNVERIFIED',?)",
+        (evidence_id, record_id, source_id, scope,
+         claim_summary, retrieved_utc),
+    )
+
+
+def record_pending_review(
+    conn: sqlite3.Connection, *, review_id: str, record_id: str,
+    jurisdiction: str, blockers: str, created_utc: str,
+) -> None:
+    """Store an E pending-review decision; not an automated A/B rights grant."""
+    _require_registry(conn)
+    if not blockers.strip():
+        raise ValueError("Review requires explicit unresolved blockers")
+    conn.execute(
+        "INSERT INTO lr_rights_reviews("
+        "review_id,record_id,jurisdiction,commercial_class,"
+        "decision_status,blockers,created_utc)"
+        " VALUES(?,?,?,'E_UNCERTAIN_MANUAL_REVIEW','MACHINE_CANDIDATE',?,?)",
+        (review_id, record_id, jurisdiction, blockers, created_utc),
+    )
+
+
+def _require_registry(conn: sqlite3.Connection) -> None:
+    if not conn.execute(
+        "SELECT 1 FROM sqlite_master "
+        "WHERE type='table' AND name='lr_schema_migrations'"
+    ).fetchone():
+        raise MigrationError("Source not migrated; create a separate work copy first")
