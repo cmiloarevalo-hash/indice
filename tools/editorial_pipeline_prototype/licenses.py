@@ -75,7 +75,7 @@ def parse_license(raw: str | None) -> LicenseTerms:
     if value in ("ALL-RIGHTS-RESERVED", "PERMISSION-REQUIRED"):
         return LicenseTerms(value, True, False, False, False, False, False, False, "RESERVED")
 
-    if value in ("PUBLIC-DOMAIN", "PUBLIC-DOMAIN-MARK", "PDM"):
+    if value in ("PUBLIC-DOMAIN", "PUBLIC-DOMAIN-MARK", "PDM", "PUBLIC-DOMAIN-CLAIM"):
         # Neither public-domain status nor Public Domain Mark is a licence
         # granting rights. It requires work AND edition-specific legal proof.
         return LicenseTerms("PUBLIC-DOMAIN-CLAIM", True, True, True,
