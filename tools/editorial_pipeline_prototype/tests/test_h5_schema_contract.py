@@ -76,6 +76,24 @@ class AcceptedRealShapeSyntheticTests(unittest.TestCase):
             self.assertEqual(registry.verify(db, expected_rows=3)["files"], 3)
             self.assertNotEqual(self.records[0][0], self.records[0][1])
 
+    def test_documented_real_defaults_are_in_synthetic_shape(self):
+        documented = {
+            "editions": {"edition_license_verified": "0"},
+            "files": {"actual_stat_status": "'NOT_AVAILABLE'"},
+            "rights_layer_status": {
+                "commercial_royalty_free_confirmed": "0",
+                "jurisdiction": "'CL_REQUIRES_REVIEW'",
+            },
+            "source_snapshots": {"original_modified": "0"},
+            "works": {"file_identity_verified": "0"},
+        }
+        with closing(sqlite3.connect(self.source)) as db:
+            for table, defaults in documented.items():
+                columns = {r[1]: r[4] for r in db.execute(
+                    f"PRAGMA table_info({table})")}
+                for name, expected in defaults.items():
+                    self.assertEqual(columns[name], expected)
+
     def test_real_shaped_backup_migration_idempotence_and_original_bytes(self):
         before = registry.file_sha256(self.source)
         destination = self.directory / "derived.sqlite"
