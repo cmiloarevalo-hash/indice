@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .rights_phase_a import LayerAssessment, LayerStatus, classify
+from .licenses import parse_license, license_conflict
 
 SCHEMA = Path(__file__).with_name("schema.sql")
 HEADERS = ("Name", "Extension", "SizeBytes", "RelativePath", "DirectoryRelativePath")
@@ -206,13 +207,20 @@ def import_rights(connection, input_json):
             territory_id, _ = _evidence_for_layer(connection, rid, "TERRITORY")
             layer_under = LayerStatus(entry.get("underlying_status", "UNCERTAIN"))
             layer_edition = LayerStatus(entry.get("edition_status", "UNCERTAIN"))
-            # The EXACT accepted Phase A classifier enforces independent work/file evidence.
-            decision = classify(
-                LayerAssessment(layer_under, (underlying_url,) if underlying_url else ()),
-                LayerAssessment(layer_edition, (edition_url,) if edition_url else ()))
             allow = entry.get("derivative_adaptation_permission", "UNKNOWN")
             if allow not in ("YES", "NO", "UNKNOWN"):
                 raise ValueError("Derivative permission must be YES/NO/UNKNOWN")
+            terms = parse_license(entry.get("license_id", "UNKNOWN"))
+            # Phase A is the sole layer combiner. Never feed it a claimed OPEN
+            # status that contradicts the exact edition licence semantics.
+            if license_conflict(
+                terms, edition_status=layer_edition.value,
+                derivative_permission=allow,
+            ):
+                layer_edition = LayerStatus.UNCERTAIN
+            decision = classify(
+                LayerAssessment(layer_under, (underlying_url,) if underlying_url else ()),
+                LayerAssessment(layer_edition, (edition_url,) if edition_url else ()))
             territory = _validated_territories(entry.get("territories", []))
             connection.execute(
                 "UPDATE rights_decisions SET underlying_status=?,edition_status=?,"
@@ -221,7 +229,7 @@ def import_rights(connection, input_json):
                 "edition_evidence_id=?,derivative_evidence_id=?,territory_evidence_id=?,"
                 "jurisdiction=?,updated_utc=? WHERE edition_id=?",
                 (layer_under.value, layer_edition.value, decision.commercial_use_class.value,
-                 entry.get("license_id", "UNKNOWN"), allow, territory,
+                 terms.identifier if terms.recognized else "UNKNOWN", allow, territory,
                  entry.get("obligations", ""), underlying_id, edition_id,
                  derivative_id, territory_id, entry.get("jurisdiction", "REVIEW_REQUIRED"),
                  now(), rid))
@@ -269,7 +277,21 @@ def eligibility(connection, edition_id, territory):
     final_class, lic, derivative, codes, obligations, jurisdiction = row
     has_source = _gate_evidence(connection, edition_id, "UNDERLYING")
     has_edition = _gate_evidence(connection, edition_id, "EDITION")
-    derivative_ok = derivative == "YES" and _gate_evidence(connection, edition_id, "DERIVATIVE")
+    terms = parse_license(lic)
+    # Query-time revalidation also blocks tampered/stale decision rows; ND/NC
+    # cannot be overridden by an unscoped adaptation/commercial flag.
+    licence_consistent = (
+        not license_conflict(terms, edition_status={
+            "A_COMMERCIAL_REUSE_CONFIRMED": "OPEN_COMMERCIAL",
+            "B_COMMERCIAL_WITH_CONDITIONS": "COMMERCIAL_WITH_CONDITIONS",
+            "C_NONCOMMERCIAL_ONLY": "NONCOMMERCIAL_ONLY",
+            "D_RIGHTS_RESERVED_OR_PERMISSION_REQUIRED": "RIGHTS_RESERVED_OR_PERMISSION_REQUIRED",
+        }.get(final_class, "UNCERTAIN"), derivative_permission=derivative)
+        if final_class != FINAL_E else False
+    )
+    derivative_ok = (derivative == "YES" and
+                     _gate_evidence(connection, edition_id, "DERIVATIVE") and
+                     terms.adaptation is True and licence_consistent)
     territories_ok = (bool(ISO_COUNTRY.fullmatch(territory)) and
                       territory in codes.split(";") and
                       _gate_evidence(connection, edition_id, "TERRITORY") and
@@ -277,15 +299,16 @@ def eligibility(connection, edition_id, territory):
     # Preserve attribution/SA obligations, never silently waive them.
     attr = (final_class in (FINAL_A, FINAL_B) and
             (final_class != FINAL_B or bool(obligations.strip())))
-    # Prevent ND licenses from being adapted even if a contradictory flag says YES.
-    nd = lic.upper().replace("_","-") in ("CC-BY-ND","CC-BY-NC-ND")
+    # A separate explicit additional grant would require a reviewed, scoped
+    # model. Neither NC nor ND is bypassable by caller flags.
     return {
         "rights_underlying_verified": has_source,
         "rights_specific_source_edition_verified": has_edition,
-        "derivative_adaptation_rights_verified": derivative_ok and not nd,
+        "derivative_adaptation_rights_verified": derivative_ok,
         "territories_verified": territories_ok,
         "attribution_obligations": attr,
-        "commercial_A_or_B": final_class in (FINAL_A, FINAL_B),
+        "commercial_A_or_B": (final_class in (FINAL_A, FINAL_B)
+                              and terms.commercial is True and licence_consistent),
         "license": lic,
         "commercial_class": final_class,
     }
