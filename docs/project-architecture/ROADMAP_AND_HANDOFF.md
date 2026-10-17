@@ -1,3 +1,7 @@
+> **ROADMAP VIGENTE — 2026-10-16, H1–H3:** consolidación Python/SQLite sintética → reparaciones NC/ND → migraciones aditivas sintéticas → workflow CI solo cuando GitHub autorice → fase privada #21 exclusivamente con nueva autorización Human → investigación #10/#22 exclusivamente tras otra autorización. **D: es obsoleto y no depende ningún hito activo de él**. CSV históricos son archivales, no pipeline alternativo. El plan editorial/IA/KDP descrito abajo es HISTÓRICO y NO ACTIVO. Ver [CURRENT_ENGINE_H1_H3.md](CURRENT_ENGINE_H1_H3.md).
+
+---
+
 # Plan de crecimiento, gobierno y entrega
 
 ## Fase 0 — esta única PR (#19)
