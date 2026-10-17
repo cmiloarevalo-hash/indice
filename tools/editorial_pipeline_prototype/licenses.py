@@ -122,6 +122,11 @@ def license_conflict(
     elif terms.commercial is True:
         if edition_status in ("NONCOMMERCIAL_ONLY", "RIGHTS_RESERVED_OR_PERMISSION_REQUIRED"):
             return True
+        # BY/SA terms carry affirmative obligations; a claimed unconditional A
+        # cannot silently override attribution or ShareAlike.
+        if terms.legal_basis == "LICENSE" and (terms.attribution or terms.share_alike):
+            if edition_status != "COMMERCIAL_WITH_CONDITIONS":
+                return True
 
     if terms.no_derivatives and derivative_permission == "YES":
         return True
